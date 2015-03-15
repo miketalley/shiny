@@ -1,5 +1,62 @@
 <div class="home container">
-  Welcome to the global jam space online community for finding local musicians and events.
 
-  Please choose an option:
+  <div class='game-board'>
+    <div class='row level3'>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level3_card.jpg'>
+      </div>
+      <!-- ko foreach: displayedCards.level3 -->
+      <div class='medium-2 columns'>
+        <img data-bind='attr: { src: $data.image }'>
+      </div>
+      <!-- /ko -->
+      <div class='medium-2 columns'>
+      </div>
+    </div>
+    <div class='row level2'>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level2_card.jpg'>
+      </div>
+      <!-- ko foreach: displayedCards.level2 -->
+      <div class='medium-2 columns'>
+        <img data-bind='attr: { src: $data.image }'>
+      </div>
+      <!-- /ko -->
+      <div class='medium-2 columns'>
+      </div>
+    </div>
+    <div class='row level1'>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <!-- ko foreach: displayedCards.level1 -->
+      <div class='medium-2 columns'>
+        <img data-bind='attr: { src: $data.image }'>
+      </div>
+      <!-- /ko -->
+      <div class='medium-2 columns'>
+      </div>
+    </div>
+    <div class='row chips'>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+      <div class='medium-2 columns'>
+        <img src='../shiny/images/misc/level1_card.jpg'>
+      </div>
+    </div>
+  </div>
+
 </div>

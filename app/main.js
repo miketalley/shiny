@@ -10,7 +10,12 @@ requirejs.config({
     'modal': '../lib/jquery-modal/jquery.modal.min',
     'datatables': '../lib/jquery-datatables/js/jquery.dataTables',
     'datatables.foundation': '../lib/jquery-datatables-foundation/dataTables.foundation',
-    'dropzone': '../lib/dropzone/dropzone-amd-module'
+    'dropzone': '../lib/dropzone/dropzone-amd-module',
+    'nobles': '../app/js/noblesData',
+    'level1': '../app/js/level1Data',
+    'level2': '../app/js/level2Data',
+    'level3': '../app/js/level3Data',
+    'methods': '../app/js/methods'
     },
     shim: {
       'knockout.punches': {
