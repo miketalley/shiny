@@ -4,6 +4,8 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
     var self = this,
         decks;
 
+    self.path = '../shiny';
+
     self.chips = {
       white: ko.observable(7),
       blue: ko.observable(7),

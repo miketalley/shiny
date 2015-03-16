@@ -9,7 +9,7 @@
 }(this, function () {
     var nobles = {};
 
-    var path = '../shiny/images/nobles/';
+    var path = '/images/nobles/';
 
     nobles.cards = [
       {

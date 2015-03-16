@@ -9,7 +9,7 @@
 }(this, function () {
 		var level1 = {};
 
-		var path = '../shiny/images/level1/';
+		var path = '/images/level1/';
 
 		level1.cards = [
 			{

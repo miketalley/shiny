@@ -8,17 +8,18 @@
 }
 
 .tile {
-
+  width: 10%;
+  height: 10%;
 }
 
 .card {
   width: 137px;
   height: 193px;
+  background-color: rgba(0, 0, 0, 1.00);
 }
 
 .tile:hover, .card:hover {
-  opacity: 0.35;
-  border: 1px solid #d3d3d3;
+  background-color: rgba(0, 0, 0, 0.50);
 }
 
 .card-image {
