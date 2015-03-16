@@ -2,49 +2,60 @@
   font-family: 'Luckiest Guy', cursive;
 }
 
-#login-modal {
-  width: 32%;
-  margin: 0 auto;
+.row {
+  padding: 5px 0px 5px 0px;
 }
 
 .tile {
-  width: 10%;
-  height: 10%;
+  height: 120px;
+  width: 120px;
 }
 
 .card {
-  width: 137px;
-  height: 193px;
-  background-color: rgba(0, 0, 0, 1.00);
+  /*height: 195px;
+  width: 138px;*/
+  height: 185px;
+  width: 135px;
+  display: table-cell;
+  vertical-align: middle;
+  border: 2px solid #262626;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #262626;
 }
 
-.tile:hover, .card:hover {
+.card :hover {
   background-color: rgba(0, 0, 0, 0.50);
+  opacity: 0.5;
 }
 
-.card-image {
-  float:left;
+.card .buy, .card .reserve {
+  opacity: 0;
+  padding: 8px 12px 8px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-color: #ffffff;
+  font-weight: bold;
+  text-align: center;
 }
 
 .card .buy {
-  opacity: 0;
-  float: left;
-  margin: 50px 0px 0px 50px;
-  padding: 10px;
-  border-radius: 7px;
+  width: 80%;
+  margin: 0px auto 10px auto;
 }
 
 .card .reserve {
-  opacity: 0;
-  float: right;
+  width: 80%;
+  margin: 0px auto;
 }
 
 .card:hover .buy {
   background: green;
   opacity: 1.00;
+  border: 1px solid #d3d3d3;
 }
 
 .card:hover .reserve {
   background: orange;
   opacity: 1.00;
+  border: 1px solid #d3d3d3;
 }
