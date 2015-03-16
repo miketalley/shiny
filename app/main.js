@@ -29,6 +29,8 @@ define(function (require) {
       app = require('durandal/app'),
       ko = require('knockout');
 
+  window.ko = ko;
+
 
   require('knockout.punches');
   ko.punches.enableAll();

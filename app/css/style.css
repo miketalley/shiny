@@ -6,3 +6,44 @@
   width: 32%;
   margin: 0 auto;
 }
+
+.tile {
+
+}
+
+.card {
+  width: 137px;
+  height: 193px;
+}
+
+.tile:hover, .card:hover {
+  opacity: 0.35;
+  border: 1px solid #d3d3d3;
+}
+
+.card-image {
+  float:left;
+}
+
+.card .buy {
+  opacity: 0;
+  float: left;
+  margin: 50px 0px 0px 50px;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+.card .reserve {
+  opacity: 0;
+  float: right;
+}
+
+.card:hover .buy {
+  background: green;
+  opacity: 1.00;
+}
+
+.card:hover .reserve {
+  background: orange;
+  opacity: 1.00;
+}
