@@ -59,7 +59,7 @@
 			  		<!-- ko foreach: chips -->
 					<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
 					<span class='count' data-bind="text: $data.count(), style: { color: $data.hex }"></span>
-						<div class='select button secondary' data-bind='visible: $data.color !== "yellow", click: selectChip'>Select</div>
+						<div class='select button secondary' data-bind='visible: $data.color !== "yellow", click: $parent.selectChip'>Select</div>
 					</div>
 			  		<!-- /ko -->
 			  	</div>
@@ -67,7 +67,13 @@
 			</div>
 		</div>
 		<div class='inventory medium-4 columns'>
-
+			<div class='selected-chips'>
+			<!-- ko foreach: selectedChips -->
+			<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+				<div class='select button secondary' data-bind='click: $parent.removeChip'>Remove</div>
+			</div>
+			<!-- /ko -->
+			<div class='button expand success' data-bind='visible: selectedChips().length, click: takeChips'>Confirm Chip Selection</div>
 		</div>
 	</div>
 </div>

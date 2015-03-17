@@ -1,7 +1,10 @@
-define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function (ko, nobles, level1, level2, level3, methods) {
+define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods'], function (ko, $, nobles, level1, level2, level3, methods) {
 
   	function Home(){
 		var self = this,
+			MAX_CHIPS = 10,
+			MAX_SELECTION = 3,
+			MAX_RESERVE = 3,
 			decks;
 
 		self.path = '../Splendor';
@@ -72,28 +75,19 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	});
 		});
 
-		self.selectedChipsWithinLimits = ko.computed(function(){
-		  	// Filter chips to make sure only 2 of same color
-		  	// or 3 of all different colors are selected
-
-		  	// TODO
-
-		  	return true;
-		});
-
 		self.numPlayers.subscribe(function(newVal){
 		  	for(var i = 0; i < newVal; i++){
 				var player = new Player();
 				player.number = i;
 				self.players.push(player);
 		  	}
-
-		  	// self.currentPlayer(self.players()[0]);
 		});
 
 		self.activate = function(){
 		  	self.numPlayers(4);
-		  	self.currentPlayer(self.players()[0]);
+		  	self.currentPlayer({
+		  		number: -1
+		  	});
 
 		  	flipInitialCards();
 		  	nextPlayerTurn();
@@ -117,13 +111,18 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	}
 		}
 
-		self.selectChip = function(){
-			var color = this.valueOf(),
-				available = self.chips[color]() > 0;
-
-			if(available){
-				self.selectedChips.push(color);
+		self.selectChip = function(chip){
+			if(chipSelectionValid(chip)){
+				chip.count(chip.count() - 1);
+				self.selectedChips.push(chip);
 			}
+		};
+
+		self.removeChip = function(chip){
+			var i = self.selectedChips().indexOf(chip);
+
+			self.selectedChips.splice(i, 1);
+			chip.count(chip.count() + 1);
 		};
 
 		function takeChips(){
@@ -138,7 +137,7 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	var currentPlayer = self.currentPlayer().number,
 				players = self.players();
 
-		  	// If the last player just went
+		  	// If the final player in each round just went
 		  	if(currentPlayer >= self.numPlayers()){
 				// Check if somebody won and display winner if so
 				if(self.playerWon()){
@@ -151,7 +150,7 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	}
 		  	// Switch to the next player
 		  	else{
-				self.currentPlayer(players[currentPlayer - 1]);
+				self.currentPlayer(players[currentPlayer + 1]);
 		  	}
 		}
 
@@ -203,6 +202,65 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	
 		  	return this;
 			
+		}
+
+		function chipSelectionValid(chip){
+		  	var selectedChips = self.selectedChips(),
+		  		currentPlayer = self.currentPlayer(),
+		  		playerChipCount = currentPlayerChipCount(),
+		  		alreadySelectedThisColor = selectedChips.filter(function(c){
+		  			return c.color === chip.color;
+		  		});
+
+			if(playerChipCount === MAX_CHIPS){
+				notification('You have too many chips! You can only buy or reserve a card!');
+				return false;
+			}
+			else if(selectedChips.length === MAX_SELECTION){
+				notification('You have already selected the maximum number of chips per turn!')
+				return false;
+			}
+			else if(chip.count() === 0){
+				notification('There are no more ' + chip.color + ' chips remaining! Choose another color!');
+				return false;
+			}
+			// First chip being selected
+			else if(!selectedChips.length && playerChipCount < MAX_CHIPS){
+				return true;
+			}
+			else if(selectedChips.length < 3 && !alreadySelectedThisColor.length){
+				return true;
+			}
+			else if(selectedChips.length === 1 && playerChipCount < 9 && alreadySelectedThisColor.length && chip.count() > 3){
+				return true;
+			}
+			else if(selectedChips.length === 2 && alreadySelectedThisColor.length){
+				notification('You are only allowed to select two chips of the same color per turn!')
+				return false;
+			}
+			else{
+				return false;
+			}
+		}
+
+		function currentPlayerChipCount(){
+			var chips = self.currentPlayer().chips,
+				sum = 0;
+			
+			for(var prop in chips){
+				sum += chips[prop];
+			}
+
+			return sum;
+		}
+
+		function notification(message){
+			alert(message);
+			// $('#notification-area').value(message);
+
+			// setTimeout(function(){
+			// 	$('#notification-area').value('');
+			// }, 2500);
 		}
 	}
 
