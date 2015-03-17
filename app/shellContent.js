@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../Splendor';
+		self.path = '';
 
 		self.chips = [
 			{
@@ -210,32 +210,44 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		playerChipCount = currentPlayerChipCount(),
 		  		alreadySelectedThisColor = selectedChips.filter(function(c){
 		  			return c.color === chip.color;
-		  		});
+		  		}),
+		  		hasTwoSameColorChips = selectedChips.length === 2 && (selectedChips[0].color === selectedChips[1].color);
 
 			if(playerChipCount === MAX_CHIPS){
 				notification('You have too many chips! You can only buy or reserve a card!');
 				return false;
 			}
 			else if(selectedChips.length === MAX_SELECTION){
-				notification('You have already selected the maximum number of chips per turn!')
+				notification('You have already selected the maximum number of chips per turn!');
 				return false;
 			}
 			else if(chip.count() === 0){
 				notification('There are no more ' + chip.color + ' chips remaining! Choose another color!');
 				return false;
 			}
+			else if(hasTwoSameColorChips){
+				notification('You cannot select 3 chips if you have two of the same color!');
+				return false;
+			}
 			// First chip being selected
 			else if(!selectedChips.length && playerChipCount < MAX_CHIPS){
 				return true;
 			}
+			else if(selectedChips.length === 2 && playerChipCount > (MAX_CHIPS - 1)){
+				notification('You already have the maximum of ten chips!');
+			}
 			else if(selectedChips.length < 3 && !alreadySelectedThisColor.length){
 				return true;
 			}
-			else if(selectedChips.length === 1 && playerChipCount < 9 && alreadySelectedThisColor.length && chip.count() > 3){
+			else if(selectedChips.length === 1 && playerChipCount < (MAX_CHIPS - 1) && alreadySelectedThisColor.length && chip.count() > 2){
 				return true;
 			}
+			else if(selectedChips.length === 1 && playerChipCount < (MAX_CHIPS - 1) && alreadySelectedThisColor.length && chip.count() < 3){
+				notification('There must be at least four chips of this color to select two of them!');
+				return false;
+			}
 			else if(selectedChips.length === 2 && alreadySelectedThisColor.length){
-				notification('You are only allowed to select two chips of the same color per turn!')
+				notification('If you want to select two same color chips, you cannot have any other chips!');
 				return false;
 			}
 			else{
