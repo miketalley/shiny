@@ -27,7 +27,14 @@
   margin: 0px 10px 0px 10px;
 }
 
-.nobles {
+.count {
+  position: relative;
+  top: 75px;
+  left: 85px;
+  font-weight: bolder;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
 }
 
 .card.selection, .chip.selection {
@@ -84,36 +91,32 @@ img.tile.back {
   margin: 0px auto 10px auto;
   position: relative;
   top: 40px;
+  left: 20px;
 }
 
 .card .reserve {
   width: 70%;
-  margin: 0px auto;
   position: relative;
   top: 40px;
+  left: 20px;
 }
 
 .chip .select {
   width: 70%;
-  margin: 0px auto;
   position: relative;
-  top: 30px;
+  top: 10px;
+  left: 15px;
+
 }
 
 .card:hover .buy {
-  background: green;
   opacity: 1.00;
-  border: 1px solid #d3d3d3;
 }
 
 .card:hover .reserve {
-  background: gold;
   opacity: 1.00;
-  border: 1px solid #d3d3d3;
 }
 
 .chip:hover .select {
-  background: #d3d3d3;
   opacity: 1.00;
-  border: 2px solid #black;
 }

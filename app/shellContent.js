@@ -6,14 +6,44 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 
 		self.path = '../Splendor';
 
-		self.chips = {
-			white: ko.observable(7),
-		  	blue: ko.observable(7),
-		  	green: ko.observable(7),
-		  	red: ko.observable(7),
-		  	brown: ko.observable(7),
-		  	yellow: ko.observable(5)
-		};
+		self.chips = [
+			{
+				color: 'white',
+				count: ko.observable(7),
+				image: '/images/misc/chip_white.jpg',
+				hex: '#ffffff'
+			},
+		  	{
+				color: 'blue',
+				count: ko.observable(7),
+				image: '/images/misc/chip_blue.jpg',
+				hex: '#0000e6'
+			},
+		  	{
+		  		color: 'green',
+				count: ko.observable(7),
+				image: '/images/misc/chip_green.jpg',
+				hex: '#009d00'
+			},
+		  	{
+				color: 'red',
+				count: ko.observable(7),
+				image: '/images/misc/chip_red.jpg',
+				hex: '#cc0000'
+			},
+		  	{
+		  		color: 'brown',
+				count: ko.observable(7),
+				image: '/images/misc/chip_brown.jpg',
+				hex: '#070503'
+			},
+		  	{
+				color: 'yellow',
+				count: ko.observable(5),
+				image: '/images/misc/chip_yellow.jpg',
+				hex: '#ffc200'
+			}
+		];
 
 		decks = {
 		  	nobles: methods.shuffle(nobles.cards),
@@ -88,7 +118,12 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		}
 
 		self.selectChip = function(){
+			var color = this.valueOf(),
+				available = self.chips[color]() > 0;
 
+			if(available){
+				self.selectedChips.push(color);
+			}
 		};
 
 		function takeChips(){
