@@ -12,6 +12,10 @@
   max-width: 50%;
 }
 
+.home.container .inventory {
+  float: left !important;
+}
+
 .row .columns, .row .column {
   padding: 5px;
 }
