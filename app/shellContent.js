@@ -69,6 +69,36 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	nextPlayerTurn();
 		};
 
+		self.buyCard = function(){
+		  	var confirmed = confirm('Are you sure you want to buy this card?');
+
+		  	if(confirmed){
+				self.currentPlayer().purchasedCards.push();
+				nextPlayerTurn();
+		  	}
+		}
+
+		self.reserveCard = function(){
+		  	var confirmed = confirm('Are you sure you want to reserve this card?');
+
+		  	if(confirmed){
+				self.currentPlayer().reservedCards.push();
+				nextPlayerTurn();
+		  	}
+		}
+
+		self.selectChip = function(){
+
+		};
+
+		function takeChips(){
+		  	if(self.selectedChipsWithinLimits()){
+				giveSelectedChipsToPlayer();
+				self.selectedChips([]);
+				nextPlayerTurn();
+		  	}
+		}
+
 		function nextPlayerTurn(){
 		  	var currentPlayer = self.currentPlayer().number,
 				players = self.players();
@@ -90,31 +120,6 @@ define(['knockout', 'nobles', 'level1', 'level2', 'level3', 'methods'], function
 		  	}
 		}
 
-		function buyCard(){
-		  	var confirmed = confirm('Are you sure you want to buy this card?');
-
-		  	if(confirmed){
-				self.currentPlayer().purchasedCards.push();
-				nextPlayerTurn();
-		  	}
-		}
-
-		function reserveCard(){
-		  	var confirmed = confirm('Are you sure you want to reserve this card?');
-
-		  	if(confirmed){
-				self.currentPlayer().reservedCards.push();
-				nextPlayerTurn();
-		  	}
-		}
-
-		function takeChips(){
-		  	if(self.selectedChipsWithinLimits()){
-				giveSelectedChipsToPlayer();
-				self.selectedChips([]);
-				nextPlayerTurn();
-		  	}
-		}
 
 		function flipInitialCards(){
 		  	var numPlayers = self.numPlayers();

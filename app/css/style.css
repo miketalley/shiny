@@ -2,36 +2,77 @@
   font-family: 'Luckiest Guy', cursive;
 }
 
-.row {
-  padding: 5px 0px 5px 0px;
+.home.container .row.top {
+  margin: 20px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.game-board {
+  max-width: 50%;
+}
+
+.row .columns, .row .column {
+  padding: 5px;
+}
+
+.row.chips {
+  padding-top: 20px;
 }
 
 .tile {
   height: 120px;
   width: 120px;
+  float: left;
+  margin: 0px 10px 0px 10px;
+}
+
+.nobles {
+}
+
+.card.selection, .chip.selection {
+  display: table-cell;
+  vertical-align: middle;
+  box-shadow: 3px 3px 7px #262626;
+}
+
+.card.selection {
+  border-radius: 10px;
+  border: 2px solid #262626;
+}
+
+.card.selection:hover {
+  border: 2px solid red;
+  background-color: rgba(0, 0, 0, 0.50);
 }
 
 .card {
-  /*height: 195px;
-  width: 138px;*/
   height: 185px;
   width: 135px;
-  display: table-cell;
-  vertical-align: middle;
-  border: 2px solid #262626;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px #262626;
+  float: left;
+  margin: 0px 20px 0px 20px;
 }
 
-.card :hover {
-  background-color: rgba(0, 0, 0, 0.50);
-  opacity: 0.5;
+img.tile.back {
+  margin-left: 25px;
 }
 
-.card .buy, .card .reserve {
+.chip {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  float: left;
+  margin: 0px 15px 0px 15px;
+}
+
+.chip.yellow {
+  margin-left: 75px;
+}
+
+.card .buy, .card .reserve, .chip .select {
   opacity: 0;
   padding: 8px 12px 8px 12px;
-  border-radius: 3px;
+  border-radius: 5px;
   font-size: 12px;
   font-color: #ffffff;
   font-weight: bold;
@@ -39,13 +80,24 @@
 }
 
 .card .buy {
-  width: 80%;
+  width: 70%;
   margin: 0px auto 10px auto;
+  position: relative;
+  top: 40px;
 }
 
 .card .reserve {
-  width: 80%;
+  width: 70%;
   margin: 0px auto;
+  position: relative;
+  top: 40px;
+}
+
+.chip .select {
+  width: 70%;
+  margin: 0px auto;
+  position: relative;
+  top: 30px;
 }
 
 .card:hover .buy {
@@ -55,7 +107,13 @@
 }
 
 .card:hover .reserve {
-  background: orange;
+  background: gold;
   opacity: 1.00;
   border: 1px solid #d3d3d3;
+}
+
+.chip:hover .select {
+  background: #d3d3d3;
+  opacity: 1.00;
+  border: 2px solid #black;
 }
