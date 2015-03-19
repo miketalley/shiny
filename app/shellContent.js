@@ -65,6 +65,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		self.numPlayers = ko.observable();
 		self.players = ko.observableArray();
 		self.currentPlayer = ko.observable();
+		self.viewedPlayer = ko.observable();
 		self.selectedChips = ko.observableArray();
 		self.selectedCardToReserve = ko.observable();
 		self.selectedCardToBuy = ko.observable();
@@ -125,33 +126,43 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			chip.count(chip.count() + 1);
 		};
 
-		function takeChips(){
-		  	if(self.selectedChipsWithinLimits()){
-				giveSelectedChipsToPlayer();
-				self.selectedChips([]);
-				nextPlayerTurn();
+		self.viewingPlayer = function(player){
+			self.viewedPlayer(player);
+		};
+
+		self.takeChips = function(){
+		  	var currentPlayer = self.currentPlayer(),
+		  		selectedChips = self.selectedChips();
+
+		  	for(var i = 0; i < selectedChips.length; i++){
+		  		currentPlayer.chips[selectedChips[i].color](currentPlayer.chips[selectedChips[i].color]() + 1);
 		  	}
-		}
+
+		  	self.selectedChips([]);
+		  	nextPlayerTurn();
+		};
 
 		function nextPlayerTurn(){
-		  	var currentPlayer = self.currentPlayer().number,
+		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
 
 		  	// If the final player in each round just went
-		  	if(currentPlayer >= self.numPlayers()){
+		  	if(currentPlayerNum >= self.numPlayers()){
 				// Check if somebody won and display winner if so
 				if(self.playerWon()){
 			  		displayWinner();
 				}
 				// If not switch back to player 1
 				else{
-			  		self.currentPlayer(players[0]);
+			  		self.currentPlayerNum(players[0]);
 				}
 		  	}
 		  	// Switch to the next player
 		  	else{
-				self.currentPlayer(players[currentPlayer + 1]);
+				self.currentPlayer(players[currentPlayerNum + 1]);
 		  	}
+
+		  	self.viewedPlayer(self.currentPlayer());
 		}
 
 
@@ -182,12 +193,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	this.reservedCards = [];
 
 		  	this.chips = {
-				white: 0,
-			  	blue: 0,
-			  	green: 0,
-			  	red: 0,
-			  	brown: 0,
-			  	yellow: 0
+				white: ko.observable(0),
+			  	blue: ko.observable(0),
+			  	green: ko.observable(0),
+			  	red: ko.observable(0),
+			  	brown: ko.observable(0),
+			  	yellow: ko.observable(0)
 		  	};
 
 		  	this.points = ko.computed(function(){
@@ -255,12 +266,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		}
 
 		function notification(message){
-			alert(message);
-			// $('#notification-area').value(message);
+			$('#notification-area').text(message);
 
-			// setTimeout(function(){
-			// 	$('#notification-area').value('');
-			// }, 2500);
+			setTimeout(function(){
+				$('#notification-area').text(null);
+			}, 1000);
 		}
 	}
 

@@ -2,6 +2,15 @@
   font-family: 'Luckiest Guy', cursive;
 }
 
+#notification-area {
+  font-weight: bolder;
+  color: red;
+  position: relative;
+  top: 7px;
+  padding: 5px;
+  white-space: nowrap;
+}
+
 .home.container .row.top {
   margin: 20px;
   width: 100%;
@@ -9,19 +18,23 @@
 }
 
 .game-board {
-  max-width: 50%;
+  max-width: 60%;
 }
 
-.home.container .inventory {
+.info-section {
   float: left !important;
 }
 
-.row .columns, .row .column {
-  padding: 5px;
+.home.container .column .columns {
+  padding: 0px !important;
 }
 
 .row.chips {
   padding-top: 20px;
+}
+
+.nobles, .level3, .level2, .level1 {
+  padding-bottom: 10px;
 }
 
 .tile {
@@ -39,6 +52,12 @@
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
+}
+
+.count.inventory {
+  top: 45px;
+  left: 45px;
+  padding: 7px;
 }
 
 .card.selection, .chip.selection {
@@ -74,6 +93,11 @@ img.tile.back {
   border-radius: 50px;
   float: left;
   margin: 0px 15px 0px 15px;
+}
+
+.chip.inventory {
+  height: 60px;
+  width: 60px;
 }
 
 .chip.yellow {
@@ -123,4 +147,33 @@ img.tile.back {
 
 .chip:hover .select {
   opacity: 1.00;
+}
+
+.player-info {
+  background: #d3d3d3;
+  padding-left: 5px;
+}
+
+.selected-chips {
+}
+
+.no-selected-chips {
+  height: 100px;
+}
+
+.player-info {
+  height: 400px;
+}
+
+.small-border {
+  border: 1px solid;
+}
+
+a.current-player {
+  font-weight: bold;
+  font-style: italic;
+}
+
+dd.active {
+  border: 1px solid #0078a0;
 }

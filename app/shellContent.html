@@ -1,6 +1,6 @@
 <div class="home container">
 	<div class='row top'>
-		<div class='game-board medium-9 columns'>
+		<div class='game-board medium-8 columns'>
 			<div class='row nobles'>
 				<div class='medium-2 columns'>
 					<img class='tile back' data-bind="attr: { src: path + '/images/misc/noble_tile.jpg' }">
@@ -66,14 +66,46 @@
 			  	<div class='medium-1 columns' />
 			</div>
 		</div>
-		<div class='inventory medium-4 columns'>
-			<div class='selected-chips'>
-			<!-- ko foreach: selectedChips -->
-			<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-				<div class='select button secondary' data-bind='click: $parent.removeChip'>Remove</div>
+		<div class='info-section medium-4 columns'>
+			<div class='chip-selection panel'>
+				<div class='row '>
+					<span id='notification-area' />
+				</div>
+				<div class='row'>
+					<div class='selected-chips medium-12 columns'>
+						<div class='no-selected-chips' data-bind='visible: !selectedChips().length'>
+							<h5>No chips selected</h5>
+						</div>
+						<!-- ko foreach: selectedChips -->
+						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+							<div class='select button secondary' data-bind='click: $parent.removeChip'>Remove</div>
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+				<div class='row'>
+					<div class='button expand success' data-bind='click: takeChips'>Confirm Chip Selection</div>
+				</div>
 			</div>
-			<!-- /ko -->
-			<div class='button expand success' data-bind='visible: selectedChips().length, click: takeChips'>Confirm Chip Selection</div>
+
+			<div class='inventory'>
+				<div class='row player-list'>
+					<dl class='player-numbers tabs' data-tabs>
+						<!-- ko foreach: players -->
+							<dd data-bind='css: { active: $data === $parent.viewedPlayer() }'>
+								<a data-bind='text: "Player " + ($data.number + 1), css: { current-player: $data === $parent.currentPlayer() }, click: $parent.viewingPlayer' />
+							</dd>
+						<!-- /ko -->
+					</dl>
+					<div class='player-info tabs-content panel'>
+						<!-- ko foreach: chips -->
+						<div class='chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+						<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color], style: { color: $data.hex }"></span>
+						</div>
+						<!-- /ko -->					
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
