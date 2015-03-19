@@ -19,8 +19,8 @@
 			 	<div class='medium-9 columns'>
 				  <!-- ko foreach: displayedCards.level3 -->
 					<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-						<div class='buy button success' data-bind="click: buyCard">Buy</div>
-				  		<div class='reserve button' data-bind="click: reserveCard">Reserve</div>
+						<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+				  		<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
 					</div>
 			  	<!-- /ko -->
 			  	</div>
@@ -33,8 +33,8 @@
 			  	<div class='medium-9 columns'>
 			  	<!-- ko foreach: displayedCards.level2 -->
 					<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-			  			<div class='buy button success' data-bind="click: buyCard">Buy</div>
-				  		<div class='reserve button' data-bind="click: reserveCard">Reserve</div>
+			  			<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+				  		<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
 					</div>
 			  	<!-- /ko -->
 			  	</div>
@@ -47,8 +47,8 @@
 			  	<div class='medium-9 columns'>
 			  	<!-- ko foreach: displayedCards.level1 -->
 					<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-				  		<div class='buy button success' data-bind="click: buyCard">Buy</div>
-				  		<div class='reserve button' data-bind="click: reserveCard">Reserve</div>
+				  		<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+				  		<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
 					</div>
 			  	<!-- /ko -->
 			  	</div>

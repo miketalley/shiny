@@ -94,13 +94,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	nextPlayerTurn();
 		};
 
-		self.buyCard = function(){
-		  	var confirmed = confirm('Are you sure you want to buy this card?');
+		self.buyCard = function(card){
 
-		  	if(confirmed){
-				self.currentPlayer().purchasedCards.push();
-				nextPlayerTurn();
-		  	}
+			if(canAffordCard(card)){
+			  	var confirmed = confirm('Are you sure you want to buy this card?');
+
+			  	if(confirmed){
+					self.currentPlayer().purchasedCards.push();
+					nextPlayerTurn();
+			  	}
+			}
 		}
 
 		self.reserveCard = function(){
@@ -268,6 +271,15 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			return sum;
 		}
+
+		 function canAffordCard(card){
+			var currentPlayer = self.currentPlayer();
+
+			debugger;
+
+			return false;
+
+		};
 
 		function notification(message){
 			$('#notification-area').text(message);
