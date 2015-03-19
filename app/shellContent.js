@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '';
+		self.path = '../Splendor';
 
 		self.chips = [
 			{
