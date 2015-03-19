@@ -71,6 +71,12 @@
   border: 2px solid #262626;
 }
 
+.card.inventory {
+  height: 111px;
+  width: 80px;
+  margin: 0px 18px 0px 18px;
+}
+
 .card.selection:hover {
   border: 2px solid red;
   background-color: rgba(0, 0, 0, 0.50);
@@ -98,6 +104,7 @@ img.tile.back {
 .chip.inventory {
   height: 60px;
   width: 60px;
+  margin: 15px 28px 0px 28px;
 }
 
 .chip.yellow {

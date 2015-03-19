@@ -98,6 +98,12 @@
 						<!-- /ko -->
 					</dl>
 					<div class='player-info tabs-content panel'>
+						<div data-bind='with: viewedPlayer'>
+							<!-- ko foreach: purchasedCards() -->
+							<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover" }' />
+							<!-- /ko -->
+						</div>
+
 						<!-- ko foreach: chips -->
 						<div class='chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
 						<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color], style: { color: $data.hex }"></span>

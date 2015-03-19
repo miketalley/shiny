@@ -13,6 +13,7 @@
 
 		level2.cards = [
 			{
+				level: 2,
 				image: path + 'IMG_0001.jpg',
 				color: 'brown',
 				points: 2,
@@ -21,6 +22,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0002.jpg',
 				color: 'brown',
 				points: 2,
@@ -31,6 +33,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0003.jpg',
 				color: 'blue',
 				points: 1,
@@ -41,6 +44,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0004.jpg',
 				color: 'brown',
 				points: 1,
@@ -51,6 +55,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0005.jpg',
 				color: 'white',
 				points: 2,
@@ -60,6 +65,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0006.jpg',
 				color: 'blue',
 				points: 2,
@@ -68,6 +74,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0007.jpg',
 				color: 'white',
 				points: 2,
@@ -76,6 +83,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0008.jpg',
 				color: 'green',
 				points: 2,
@@ -86,6 +94,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0009.jpg',
 				color: 'white',
 				points: 3,
@@ -94,6 +103,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0010.jpg',
 				color: 'red',
 				points: 1,
@@ -104,6 +114,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0011.jpg',
 				color: 'green',
 				points: 1,
@@ -114,6 +125,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0012.jpg',
 				color: 'white',
 				points: 2,
@@ -124,6 +136,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0013.jpg',
 				color: 'white',
 				points: 1,
@@ -134,6 +147,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0014.jpg',
 				color: 'red',
 				points: 2,
@@ -142,6 +156,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0015.jpg',
 				color: 'brown',
 				points: 2,
@@ -151,6 +166,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0016.jpg',
 				color: 'green',
 				points: 2,
@@ -160,6 +176,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0017.jpg',
 				color: 'red',
 				points: 1,
@@ -170,6 +187,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0018.jpg',
 				color: 'brown',
 				points: 3,
@@ -178,6 +196,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0019.jpg',
 				color: 'red',
 				points: 2,
@@ -187,6 +206,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0020.jpg',
 				color: 'green',
 				points: 2,
@@ -195,6 +215,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0021.jpg',
 				color: 'blue',
 				points: 2,
@@ -205,6 +226,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0022.jpg',
 				color: 'white',
 				points: 1,
@@ -215,6 +237,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0023.jpg',
 				color: 'blue',
 				points: 3,
@@ -223,6 +246,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0024.jpg',
 				color: 'green',
 				points: 3,
@@ -231,6 +255,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0025.jpg',
 				color: 'red',
 				points: 2,
@@ -241,6 +266,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0026.jpg',
 				color: 'red',
 				points: 3,
@@ -249,6 +275,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0027.jpg',
 				color: 'blue',
 				points: 2,
@@ -258,6 +285,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0028.jpg',
 				color: 'brown',
 				points: 1,
@@ -268,6 +296,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0029.jpg',
 				color: 'blue',
 				points: 1,
@@ -278,6 +307,7 @@
 				}
 			},
 			{
+				level: 2,
 				image: path + 'IMG_0030.jpg',
 				color: 'green',
 				points: 1,

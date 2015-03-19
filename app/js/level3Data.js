@@ -13,6 +13,7 @@
 
 		level3.cards = [
 			{
+				level: 3,
 				image: path + 'IMG_0001.jpg',
 				color: 'white',
 				points: 4,
@@ -23,6 +24,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0002.jpg',
 				color: 'red',
 				points: 4,
@@ -33,6 +35,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0003.jpg',
 				color: 'red',
 				points: 3,
@@ -44,6 +47,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0004.jpg',
 				color: 'green',
 				points: 4,
@@ -52,6 +56,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0005.jpg',
 				color: 'green',
 				points: 5,
@@ -61,6 +66,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0006.jpg',
 				color: 'blue',
 				points: 4,
@@ -71,6 +77,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0007.jpg',
 				color: 'blue',
 				points: 5,
@@ -80,6 +87,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0008.jpg',
 				color: 'green',
 				points: 3,
@@ -91,6 +99,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0009.jpg',
 				color: 'blue',
 				points: 4,
@@ -99,6 +108,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0010.jpg',
 				color: 'red',
 				points: 0,
@@ -107,6 +117,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0011.jpg',
 				color: 'brown',
 				points: 3,
@@ -118,6 +129,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0012.jpg',
 				color: 'white',
 				points: 4,
@@ -126,6 +138,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0013.jpg',
 				color: 'white',
 				points: 5,
@@ -135,6 +148,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0014.jpg',
 				color: 'green',
 				points: 4,
@@ -145,6 +159,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0015.jpg',
 				color: 'brown',
 				points: 4,
@@ -155,6 +170,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0016.jpg',
 				color: 'white',
 				points: 3,
@@ -166,6 +182,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0017.jpg',
 				color: 'brown',
 				points: 5,
@@ -175,6 +192,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0018.jpg',
 				color: 'white',
 				points: 4,
@@ -183,6 +201,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0019.jpg',
 				color: 'blue',
 				points: 3,
@@ -194,6 +213,7 @@
 				}
 			},
 			{
+				level: 3,
 				image: path + 'IMG_0020.jpg',
 				color: 'red',
 				points: 5,

@@ -100,7 +100,20 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	var confirmed = confirm('Are you sure you want to buy this card?');
 
 			  	if(confirmed){
-					self.currentPlayer().purchasedCards.push();
+			  		var currentPlayer = self.currentPlayer(),
+			  			cardLevel = 'level' + card.level,
+			  			index = self.displayedCards[cardLevel].indexOf(card);
+
+			  		for(chipColor in card.cost){
+			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
+			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - card.cost[chipColor]);
+			  			chipObj.count(chipObj.count() + card.cost[chipColor]);
+			  		}
+
+			  		var purchasedCard = self.displayedCards[cardLevel].splice(index, 1)[0];
+
+					currentPlayer.purchasedCards.push(purchasedCard);
+					flipCard(cardLevel, index);
 					nextPlayerTurn();
 			  	}
 			}
@@ -192,8 +205,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		function Player(){
 		  	var thisPlayer = this;
 
-		  	this.purchasedCards = [];
-		  	this.reservedCards = [];
+		  	this.purchasedCards = ko.observableArray();
+		  	this.reservedCards = ko.observableArray();
 
 		  	this.chips = {
 				white: ko.observable(0),
@@ -205,11 +218,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	};
 
 		  	this.points = ko.computed(function(){
-				if(!thisPlayer.purchasedCards.length){
+				if(!thisPlayer.purchasedCards().length){
 			  		return 0;
 				}
-				return thisPlayer.purchasedCards.reduce(function(prev, curr, i, array){
-			  		return prev + curr;
+				return thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
+			  		return prev.points + curr.points;
 				});
 		  	});
 
@@ -241,6 +254,10 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			// First chip being selected
 			else if(!selectedChips.length && playerChipCount < MAX_CHIPS){
 				return true;
+			}
+			else if(selectedChips.length === 2 && selectedChips[0].color === selectedChips[1].color){
+				notification('You already have two chips of the same color and cannot select a third!');
+				return false;
 			}
 			else if(selectedChips.length < 3 && !alreadySelectedThisColor){
 				return true;
@@ -275,10 +292,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		 function canAffordCard(card){
 			var currentPlayer = self.currentPlayer();
 
-			debugger;
+			var deficit = Object.keys(card.cost).filter(function(color){
+				return currentPlayer.chips[color]() < card.cost[color];
+			});
 
-			return false;
-
+			return deficit.length ? notification('You do not have enough chips to buy this card!') : true;
 		};
 
 		function notification(message){
@@ -287,6 +305,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			setTimeout(function(){
 				$('#notification-area').text(null);
 			}, 1000);
+
+			return false;
 		}
 	}
 
