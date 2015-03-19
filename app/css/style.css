@@ -77,11 +77,18 @@
   margin: 0px 18px 0px 18px;
 }
 
+.home .inline-list {
+  margin: -5px 0px 10px -8px;
+}
+
 .card-stack {
-  height: 200px;
+  height: 280px;
+  width: 82px;
   border: 1px solid #d3d3d3;
   background: #ffffff;
-  margin: 0px 10px 0px 10px;
+  margin: 0px;
+  border-style: double;
+  border-width: 3px;
 }
 
 .card.selection:hover {
@@ -113,9 +120,9 @@ img.tile.back {
 }
 
 .chip.inventory {
-  height: 60px;
-  width: 60px;
-  margin: 10px 32px 0px 32px;
+  height: 55px;
+  width: 55px;
+  margin: -10px 23px 0px 23px
 }
 
 .chip.yellow {
@@ -198,26 +205,38 @@ dd.active {
 }
 
 /*.white {
-  border: 1px solid #ffffff;
+  border: 1px solid #d3d3d3;
+  border-style: double;
+  border-width: 3px;
 }
 
 .blue {
   border: 1px solid #0000e6;
+  border-style: double;
+  border-width: 3px;
 }
 
 .green {
   border: 1px solid #009d00;
+  border-style: double;
+  border-width: 3px;
 }
 
 .red {
   border: 1px solid #cc0000;
+  border-style: double;
+  border-width: 3px;
 }
 
 .brown {
   border: 1px solid #070503;
+  border-style: double;
+  border-width: 3px;
 }
 
 .yellow {
   border: 1px solid #ffc200;
+  border-style: double;
+  border-width: 3px;
 }*/
 
