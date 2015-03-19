@@ -73,7 +73,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		self.playerWon = ko.computed(function(){
 		  	return self.players().filter(function(player, i, array){
 				return player.points() >= 15;
-		  	});
+		  	}).length;
 		});
 
 		self.numPlayers.subscribe(function(newVal){
@@ -147,14 +147,14 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				players = self.players();
 
 		  	// If the final player in each round just went
-		  	if(currentPlayerNum >= self.numPlayers()){
+		  	if(currentPlayerNum === (self.numPlayers() - 1)){
 				// Check if somebody won and display winner if so
 				if(self.playerWon()){
 			  		displayWinner();
 				}
 				// If not switch back to player 1
 				else{
-			  		self.currentPlayerNum(players[0]);
+			  		self.currentPlayer(players[0]);
 				}
 		  	}
 		  	// Switch to the next player
@@ -221,14 +221,14 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		playerChipCount = currentPlayerChipCount(),
 		  		alreadySelectedThisColor = selectedChips.filter(function(c){
 		  			return c.color === chip.color;
-		  		});
+		  		}).length;
 
 			if(playerChipCount === MAX_CHIPS){
 				notification('You have too many chips! You can only buy or reserve a card!');
 				return false;
 			}
 			else if(selectedChips.length === MAX_SELECTION){
-				notification('You have already selected the maximum number of chips per turn!')
+				notification('You have already selected the maximum number of chips per turn!');
 				return false;
 			}
 			else if(chip.count() === 0){
@@ -239,14 +239,18 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			else if(!selectedChips.length && playerChipCount < MAX_CHIPS){
 				return true;
 			}
-			else if(selectedChips.length < 3 && !alreadySelectedThisColor.length){
+			else if(selectedChips.length < 3 && !alreadySelectedThisColor){
 				return true;
 			}
-			else if(selectedChips.length === 1 && playerChipCount < 9 && alreadySelectedThisColor.length && chip.count() > 3){
+			else if(selectedChips.length === 1 && playerChipCount < 9 && alreadySelectedThisColor && chip.count() >= 3){
 				return true;
 			}
-			else if(selectedChips.length === 2 && alreadySelectedThisColor.length){
-				notification('You are only allowed to select two chips of the same color per turn!')
+			else if(selectedChips.length === 1 && playerChipCount < 9 && alreadySelectedThisColor && chip.count() < 3){
+				notification('You cannot select two same color chips if there are less than four!');
+				return false;
+			}
+			else if(selectedChips.length === 2 && alreadySelectedThisColor){
+				notification('You are only allowed to select two chips of the same color per turn!');
 				return false;
 			}
 			else{
@@ -259,7 +263,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				sum = 0;
 			
 			for(var prop in chips){
-				sum += chips[prop];
+				sum += chips[prop]();
 			}
 
 			return sum;

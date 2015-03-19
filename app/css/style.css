@@ -155,6 +155,7 @@ img.tile.back {
 }
 
 .selected-chips {
+  margin-bottom: 10px;
 }
 
 .no-selected-chips {
