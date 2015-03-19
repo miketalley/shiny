@@ -88,7 +88,7 @@
   background: #ffffff;
   margin: 0px;
   border-style: double;
-  border-width: 3px;
+  border-width: 2px;
 }
 
 .card.selection:hover {
@@ -122,7 +122,7 @@ img.tile.back {
 .chip.inventory {
   height: 55px;
   width: 55px;
-  margin: -10px 23px 0px 23px
+  margin: -10px 25px 0px 24px;
 }
 
 .chip.yellow {
