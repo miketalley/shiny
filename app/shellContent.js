@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../Splendor';
+		self.path = '';
 
 		self.chips = [
 			{
@@ -256,7 +256,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		playerChipCount = currentPlayerChipCount(),
 		  		alreadySelectedThisColor = selectedChips.filter(function(c){
 		  			return c.color === chip.color;
-		  		}).length;
+		  		}).length,
+		  		hasTwoSameColorChips = selectedChips.length === 2 && (selectedChips[0].color === selectedChips[1].color);
 
 			if(playerChipCount === MAX_CHIPS){
 				notification('You have too many chips! You can only buy or reserve a card!');
@@ -270,9 +271,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				notification('There are no more ' + chip.color + ' chips remaining! Choose another color!');
 				return false;
 			}
+			else if(hasTwoSameColorChips){
+				notification('You cannot select 3 chips if you have two of the same color!');
+				return false;
+			}
 			// First chip being selected
 			else if(!selectedChips.length && playerChipCount < MAX_CHIPS){
 				return true;
+			}
+			else if(selectedChips.length === 2 && playerChipCount > (MAX_CHIPS - 1)){
+				notification('You already have the maximum of ten chips!');
 			}
 			else if(selectedChips.length === 2 && selectedChips[0].color === selectedChips[1].color){
 				notification('You already have two chips of the same color and cannot select a third!');
