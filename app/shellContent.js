@@ -106,8 +106,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			  		for(chipColor in card.cost){
 			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
-			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - card.cost[chipColor]);
-			  			chipObj.count(chipObj.count() + card.cost[chipColor]);
+			  				ownedCardsThisColor = currentPlayer.purchasedCards().filter(function(card){ return card.color === chipColor; }).length,
+			  				chipCost = card.cost[chipColor] - ownedCardsThisColor;
+
+			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
+			  			chipObj.count(chipObj.count() + chipCost);
 			  		}
 
 			  		var purchasedCard = self.displayedCards[cardLevel].splice(index, 1)[0];
@@ -206,6 +209,22 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	var thisPlayer = this;
 
 		  	this.purchasedCards = ko.observableArray();
+		  	this.purchasedWhiteCards = ko.computed(function(){
+		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'white'});
+		  	});
+		  	this.purchasedBlueCards = ko.computed(function(){
+		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'blue'});
+		  	});
+		  	this.purchasedGreenCards = ko.computed(function(){
+		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'green'});
+		  	});
+		  	this.purchasedRedCards = ko.computed(function(){
+		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'red'});
+		  	});
+		  	this.purchasedBrownCards = ko.computed(function(){
+		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'brown'});
+		  	});
+
 		  	this.reservedCards = ko.observableArray();
 
 		  	this.chips = {

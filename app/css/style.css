@@ -77,6 +77,13 @@
   margin: 0px 18px 0px 18px;
 }
 
+.card-stack {
+  height: 200px;
+  border: 1px solid #d3d3d3;
+  background: #ffffff;
+  margin: 0px 10px 0px 10px;
+}
+
 .card.selection:hover {
   border: 2px solid red;
   background-color: rgba(0, 0, 0, 0.50);
@@ -101,10 +108,14 @@ img.tile.back {
   margin: 0px 15px 0px 15px;
 }
 
+.chip-inventory-container {
+  padding-top: 10px;
+}
+
 .chip.inventory {
   height: 60px;
   width: 60px;
-  margin: 15px 28px 0px 28px;
+  margin: 10px 32px 0px 32px;
 }
 
 .chip.yellow {
@@ -185,3 +196,28 @@ a.current-player {
 dd.active {
   border: 1px solid #0078a0;
 }
+
+/*.white {
+  border: 1px solid #ffffff;
+}
+
+.blue {
+  border: 1px solid #0000e6;
+}
+
+.green {
+  border: 1px solid #009d00;
+}
+
+.red {
+  border: 1px solid #cc0000;
+}
+
+.brown {
+  border: 1px solid #070503;
+}
+
+.yellow {
+  border: 1px solid #ffc200;
+}*/
+

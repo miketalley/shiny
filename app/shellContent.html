@@ -67,6 +67,7 @@
 			</div>
 		</div>
 		<div class='info-section medium-4 columns'>
+			<label data-bind='text: "Player " + (currentPlayer().number + 1)' />
 			<div class='chip-selection panel'>
 				<div class='row '>
 					<span id='notification-area' />
@@ -98,17 +99,42 @@
 						<!-- /ko -->
 					</dl>
 					<div class='player-info tabs-content panel'>
-						<div data-bind='with: viewedPlayer'>
-							<!-- ko foreach: purchasedCards() -->
-							<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover" }' />
-							<!-- /ko -->
+						<div class='row' data-bind='with: viewedPlayer'>
+							<div class='medium-2 columns card-stack white'>
+								<!-- ko foreach: purchasedWhiteCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "absolute", top: ($index * 30).toString() + "px"}' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack blue'>
+								<!-- ko foreach: purchasedBlueCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "absolute", top: ($index * 30).toString() + "px"}' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack green'>
+								<!-- ko foreach: purchasedGreenCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "absolute", top: ($index * 30).toString() + "px"}' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack red'>
+								<!-- ko foreach: purchasedRedCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "absolute", top: ($index * 30).toString() + "px"}' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack brown'>
+								<!-- ko foreach: purchasedBrownCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "absolute", top: ($index * 30).toString() + "px"}' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns' />
 						</div>
 
-						<!-- ko foreach: chips -->
-						<div class='chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-						<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color], style: { color: $data.hex }"></span>
-						</div>
-						<!-- /ko -->					
+						<div class='row chip-inventory-container'>
+							<!-- ko foreach: chips -->
+							<div class='chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+								<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color], style: { color: $data.hex }"></span>
+							</div>
+							<!-- /ko -->
+						</div>					
 					</div>
 				</div>
 			</div>
