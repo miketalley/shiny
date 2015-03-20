@@ -141,8 +141,8 @@
 
 .card.inventory .buy {
   position: relative;
-  top: 35px;
-  left: 10px;
+  top: 30px;
+  left: 15px;
 }
 
 .reserved-card-purchase {
