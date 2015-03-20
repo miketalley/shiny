@@ -95,7 +95,6 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		};
 
 		self.buyCard = function(card){
-
 			if(canAffordCard(card)){
 			  	var confirmed = confirm('Are you sure you want to buy this card?');
 
@@ -142,6 +141,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				flipCard(cardLevel, index);
 				nextPlayerTurn();
 		  	}
+		};
+
+		self.buyReservedCard = function(card){
+			if(self.viewedPlayer() === self.currentPlayer()){
+				self.buyCard(card);
+			}
 		};
 
 		self.selectChip = function(chip){

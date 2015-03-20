@@ -144,8 +144,8 @@
 							<div class='medium-2 columns card-stack reserved'>
 								<!-- ko foreach: reservedCards() -->
 								<div class='reserved card inventory' data-bind='style: { background: "url(" + $root.path + "/images/misc/level" + $data.level + "_card.jpg)", background-size: "cover", position: "relative", top: ($index() * -50).toString() + "px", right: "22px" }'>
-									<div class='reserved-card-purchase selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-										<div class='buy button success' data-bind="click: $root.buyCard">Buy</div>
+									<div class='reserved-card-purchase selection' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover" }'>
+										<div class='buy button success' data-bind="click: $root.buyReservedCard, visible: $root.viewedPlayer() === $root.currentPlayer()">Buy</div>
 										</div>
 								</div>
 								<!-- /ko -->
