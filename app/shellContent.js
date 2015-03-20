@@ -161,6 +161,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	nextPlayerTurn();
 		};
 
+		self.viewedPlayerChips = function(data){
+			var color = data.color;
+
+			return self.viewedPlayer().chips[color]();
+		};
+
 		function nextPlayerTurn(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
@@ -320,7 +326,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			var currentPlayer = self.currentPlayer();
 
 			var deficit = Object.keys(card.cost).filter(function(color){
-				return currentPlayer.chips[color]() < card.cost[color];
+				var colorUpperCase = colorcharAt(0).toUpperCase() + color.slice(1, color.length);
+				return (currentPlayer.chips[color]() + currentPlayer['purchased' + colorUpperCase + 'Cards']()) < card.cost[color];
 			});
 
 			return deficit.length ? notification('You do not have enough chips to buy this card!') : true;

@@ -81,12 +81,14 @@
   margin: -5px 0px 10px -8px;
 }
 
+.card-containers {
+  padding-bottom: 10px;
+}
+
 .card-stack {
-  height: 280px;
-  width: 82px;
+  height: 290px;
   border: 1px solid #d3d3d3;
   background: #ffffff;
-  margin: 0px;
   border-style: double;
   border-width: 2px;
 }
@@ -113,6 +115,10 @@ img.tile.back {
   border-radius: 50px;
   float: left;
   margin: 0px 15px 0px 15px;
+}
+
+.chip-selection {
+  height: 220px;
 }
 
 .chip-inventory-container {
