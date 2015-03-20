@@ -104,10 +104,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  			cardLevel = 'level' + card.level,
 			  			index = self.displayedCards[cardLevel].indexOf(card);
 
-			  		for(chipColor in card.cost){
+			  		for(var chipColor in card.cost){
 			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
 			  				ownedCardsThisColor = currentPlayer.purchasedCards().filter(function(card){ return card.color === chipColor; }).length,
 			  				chipCost = card.cost[chipColor] - ownedCardsThisColor;
+			  				
 
 			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
 			  			chipObj.count(chipObj.count() + chipCost);
@@ -120,16 +121,28 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 					nextPlayerTurn();
 			  	}
 			}
-		}
+		};
 
-		self.reserveCard = function(){
+		self.reserveCard = function(card){
 		  	var confirmed = confirm('Are you sure you want to reserve this card?');
 
 		  	if(confirmed){
-				self.currentPlayer().reservedCards.push();
+		  		var currentPlayer = self.currentPlayer(),
+			  		cardLevel = 'level' + card.level,
+			  		index = self.displayedCards[cardLevel].indexOf(card),
+			  		yellowChips = self.chips.filter(function(chip){ return chip.color === 'yellow'; })[0];
+
+			  	var reservedCard = self.displayedCards[cardLevel].splice(index, 1)[0];
+
+				self.currentPlayer().reservedCards.push(reservedCard);
+				if(yellowChips.count() > 0){
+					yellowChips.count(yellowChips.count() - 1);
+					currentPlayer.chips.yellow(currentPlayer.chips.yellow() + 1);
+				}
+				flipCard(cardLevel, index);
 				nextPlayerTurn();
 		  	}
-		}
+		};
 
 		self.selectChip = function(chip){
 			if(chip && chipSelectionValid(chip)){
@@ -331,7 +344,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			});
 
 			return deficit.length ? notification('You do not have enough chips to buy this card!') : true;
-		};
+		}
 
 		function notification(message){
 			$('#notification-area').text(message);

@@ -139,6 +139,12 @@
   left: -2px;
 }
 
+.card.inventory .buy {
+  position: relative;
+  top: 35px;
+  left: 10px;
+}
+
 
 .card.inventory {
   height: 111px;
