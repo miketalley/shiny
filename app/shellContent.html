@@ -64,7 +64,7 @@
 			  		<li class='chip-selection-container'>
 						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.selectChip'>
 							<span class='count' data-bind="text: $data.count()"></span>
-							<div class='select button secondary' data-bind='visible: $data.color !== "yellow"'>Select</div>
+							<div class='select button secondary'>Select</div>
 						</div>
 			  		</li>
 			  		<!-- /ko -->
@@ -72,26 +72,30 @@
 			</div>
 		</div>
 		<div class='info-section'>
-			<label data-bind='text: "Player " + (currentPlayer().number + 1)' />
-			<div class='chip-selection panel'>
-				<div class='row '>
+			<div class='row'>
+				<div class='medium-3 small-12 columns'>
+					<label class='current-player luckiest-guy' data-bind='text: "Player " + (currentPlayer().number + 1)' />
+				</div>
+				<div class='medium-9 small-12 columns'>
 					<span id='notification-area' />
 				</div>
-				<div class='row'>
-					<div class='selected-chips medium-12 columns'>
-						<div class='no-selected-chips' data-bind='visible: !selectedChips().length'>
-							<h5>No chips selected</h5>
-						</div>
-						<!-- ko foreach: selectedChips -->
-						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-							<div class='select button secondary' data-bind='click: $parent.removeChip'>Remove</div>
-						</div>
-						<!-- /ko -->
+			</div>
+			<div class='row chip-selection panel'>
+				<div class='selected-chips medium-12 columns'>
+					<div class='no-selected-chips' data-bind='visible: !selectedChips().length'>
+						<h5>No chips selected</h5>
 					</div>
+					<ul class='inline-list'>
+						<!-- ko foreach: selectedChips -->
+						<li class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.removeChip'>
+							<div class='select remove button secondary'>Remove</div>
+						</li>
+						<!-- /ko -->
+					</ul>
 				</div>
-				<div class='row'>
-					<div class='button expand success' data-bind='click: takeChips'>Confirm Chip Selection</div>
-				</div>
+			</div>
+			<div class='row'>
+				<div class='button expand success' data-bind='click: takeChips'>Confirm Chip Selection</div>
 			</div>
 
 			<div class='inventory'>

@@ -1,4 +1,4 @@
-.luckiest-guy {
+.luckiest-guy, .current-player, .player-numbers.tabs dd>a  {
   font-family: 'Luckiest Guy', cursive;
 }
 
@@ -9,6 +9,14 @@
   top: 7px;
   padding: 5px;
   white-space: nowrap;
+}
+
+/* ===========
+   GENERAL
+=========== */
+
+.home .inline-list {
+  margin: -5px 0px 10px -8px;
 }
 
 .home.container .row.top {
@@ -26,6 +34,10 @@
   min-width: 40%;
   float: left;
 }
+
+/* ===========
+  GAME BOARD
+=========== */
 
 .nobles-container .noble {
   width: 100px;
@@ -45,100 +57,13 @@
   min-height: 115px;
 }
 
-.chip {
-  height: 80px;
-  width: 80px;
-  border-radius: 50px;
-}
-
-.count {
-  position: relative;
-  top: 0px;
-  left: 60px;
-  font-weight: bolder;
-  padding: 4px 7px 4px 7px;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 20px;
-  color: #d3d3d3;
-  /*text-shadow: 1px 1px 3px #d3d3d3;*/
-}
-
-.count.inventory {
-  top: 0px;
-  left: 25px;
-  font-size: 0.9em;
-}
-
-.card.selection, .chip.selection {
-  display: table-cell;
-  vertical-align: middle;
-  box-shadow: 3px 3px 7px #262626;
-}
-
-
-
-
-
 .card.selection {
   border-radius: 10px;
   border: 2px solid #262626;
 }
 
-.card.inventory {
-  height: 111px;
-  width: 80px;
-  margin: 0px 18px 0px 18px;
-}
-
-.home .inline-list {
-  margin: -5px 0px 10px -8px;
-}
-
-.card-containers {
-  padding-bottom: 10px;
-}
-
-.card-stack {
-  height: 290px;
-  border: 1px solid #d3d3d3;
-  background: #ffffff;
-  border-style: double;
-  border-width: 2px;
-}
-
-.card.selection:hover {
-  border: 2px solid red;
-  background-color: rgba(0, 0, 0, 0.50);
-}
-
-.chips .chip-selection-container.columns {
-  padding: 0px;
-}
-
-
-
-.chip-selection {
-  height: 220px;
-}
-
-.chip-inventory-container {
-  padding-bottom: 20px;
-}
-
-.chip.inventory {
-  height: 55px;
-  width: 55px;
-  margin-right: 10px;
-}
-
-.card .buy, .card .reserve, .chip .select {
-  opacity: 0;
-  padding: 8px 12px 8px 12px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-color: #ffffff;
-  font-weight: bold;
-  text-align: center;
+.card:hover .buy, .card:hover .reserve, .chip:hover .select, .chip:hover .remove {
+  opacity: 1.00;
 }
 
 .card .buy {
@@ -156,24 +81,108 @@
   left: 20px;
 }
 
-.chip .select {
-  width: 70%;
+.chip {
+  height: 80px;
+  width: 80px;
+  border-radius: 45px;
+}
+
+.count {
   position: relative;
-  top: 10px;
-  left: 15px;
-
+  top: 0px;
+  left: 60px;
+  font-weight: bolder;
+  padding: 4px 7px 4px 7px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 20px;
+  color: #d3d3d3;
+  /*text-shadow: 1px 1px 3px #d3d3d3;*/
 }
 
-.card:hover .buy {
-  opacity: 1.00;
+.chip-selection-container {
+  margin-bottom: 10px;
 }
 
-.card:hover .reserve {
-  opacity: 1.00;
+.chip .select {
+  position: relative;
+  left: 10px;
 }
 
-.chip:hover .select {
-  opacity: 1.00;
+.card.selection, .chip.selection {
+  box-shadow: 3px 3px 7px #262626;
+}
+
+
+/* ===========
+ INFO SECTION
+=========== */
+
+.current-player {
+  font-size: 18px;
+}
+
+.chips .chip-selection-container.columns {
+  padding: 0px;
+}
+
+.chip-selection {
+  height: 115px;
+}
+
+.chip.selection {
+  margin-bottom: 5px;
+}
+
+.chip .remove {
+  position: relative;
+  top: 25px;
+  left: -2px;
+}
+
+
+.card.inventory {
+  height: 111px;
+  width: 80px;
+  margin: 0px 18px 0px 18px;
+}
+
+.card-stack {
+  height: 290px;
+  border: 1px solid #d3d3d3;
+  background: #ffffff;
+  border-style: double;
+  border-width: 2px;
+}
+
+.card.selection:hover {
+  border: 2px solid red;
+  background-color: rgba(0, 0, 0, 0.50);
+}
+
+.chip-inventory-container {
+  padding-bottom: 20px;
+}
+
+.chip.inventory {
+  height: 55px;
+  width: 55px;
+  margin-right: 10px;
+}
+
+.count.inventory {
+  top: 0px;
+  left: 25px;
+  font-size: 0.9em;
+}
+
+.card .buy, .card .reserve, .chip .select {
+  opacity: 0;
+  padding: 8px 12px 8px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-color: #ffffff;
+  font-weight: bold;
+  text-align: center;
 }
 
 .player-info {
@@ -183,10 +192,6 @@
 
 .selected-chips {
   margin-bottom: 10px;
-}
-
-.no-selected-chips {
-  height: 100px;
 }
 
 .player-info {
@@ -205,40 +210,4 @@ a.current-player {
 dd.active {
   border: 1px solid #0078a0;
 }
-
-/*.white {
-  border: 1px solid #d3d3d3;
-  border-style: double;
-  border-width: 3px;
-}
-
-.blue {
-  border: 1px solid #0000e6;
-  border-style: double;
-  border-width: 3px;
-}
-
-.green {
-  border: 1px solid #009d00;
-  border-style: double;
-  border-width: 3px;
-}
-
-.red {
-  border: 1px solid #cc0000;
-  border-style: double;
-  border-width: 3px;
-}
-
-.brown {
-  border: 1px solid #070503;
-  border-style: double;
-  border-width: 3px;
-}
-
-.yellow {
-  border: 1px solid #ffc200;
-  border-style: double;
-  border-width: 3px;
-}*/
 
