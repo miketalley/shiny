@@ -62,7 +62,7 @@
   border: 2px solid #262626;
 }
 
-.card:hover .buy, .card:hover .reserve, .chip:hover .select, .chip:hover .remove, .reserved.card:hover .reserved-card-purchase {
+.card:hover .buy, .card:hover .reserve, .chip:hover .select, .chip:hover .remove {
   opacity: 1.00;
 }
 
@@ -143,6 +143,12 @@
   position: relative;
   top: 30px;
   left: 15px;
+}
+
+.reserved.card:hover .reserved-card-purchase {
+  opacity: 1.00;
+  position: absolute;
+  z-index: 1;
 }
 
 .reserved-card-purchase {
