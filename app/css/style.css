@@ -49,6 +49,10 @@
   min-width: 115px;
 }
 
+.card {
+  background-size: cover;
+}
+
 .card-container .card {
   height: 165px;
   width: 115px;
@@ -162,6 +166,7 @@
   height: 111px;
   width: 80px;
   margin: 0px 18px 0px 18px;
+  transition: top 1s ease;
 }
 
 .card-stack {
