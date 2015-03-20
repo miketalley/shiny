@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../Splendor';
+		self.path = '../';
 
 		self.chips = [
 			{
@@ -132,7 +132,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		}
 
 		self.selectChip = function(chip){
-			if(chipSelectionValid(chip)){
+			if(chip && chipSelectionValid(chip)){
 				chip.count(chip.count() - 1);
 				self.selectedChips.push(chip);
 			}
