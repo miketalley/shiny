@@ -11,6 +11,7 @@ requirejs.config({
     'datatables': '../lib/jquery-datatables/js/jquery.dataTables',
     'datatables.foundation': '../lib/jquery-datatables-foundation/dataTables.foundation',
     'dropzone': '../lib/dropzone/dropzone-amd-module',
+    'qtip': '../lib/qtip/jquery.qtip',
     'nobles': '../app/js/noblesData',
     'level1': '../app/js/level1Data',
     'level2': '../app/js/level2Data',

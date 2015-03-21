@@ -1,84 +1,168 @@
 <div class="home container">
+	<div class='row top'>
+		<div class='game-board'>
+			<div class='row nobles-container'>
+				<ul class='inline-list'>
+					<li class='noble'>
+						<img class='tile back' data-bind="attr: { src: path + '/images/misc/noble_tile.jpg' }">
+					</li>
+				  	<!-- ko foreach: displayedCards.nobles -->
+				  	<li class='noble'>
+				  		<img class='tile' data-bind='attr: { src: $parent.path + $data.image }' />
+				  	</li>
+				  	<!-- /ko -->
+				</ul>
+			</div>
+			<div class='row level3'>
+				<ul class='inline-list'>
+			  		<li class='card-container'>
+				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level3_card.jpg' }">
+					</li>
+					<!-- ko foreach: displayedCards.level3 -->
+				 		<li class='card-container'>
+							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+							</div>
+						</li>
+				  	<!-- /ko -->
+			  	</ul>
+			</div>
+			<div class='row level2'>
+				<ul class='inline-list'>
+			  		<li class='card-container'>
+				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level2_card.jpg' }">
+					</li>
+					<!-- ko foreach: displayedCards.level2 -->
+				 		<li class='card-container'>
+							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+							</div>
+						</li>
+				  	<!-- /ko -->
+			  	</ul>
+			</div>
+			<div class='row level1'>
+			  	<ul class='inline-list'>
+			  		<li class='card-container'>
+				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level1_card.jpg' }">
+					</li>
+					<!-- ko foreach: displayedCards.level1 -->
+				 		<li class='card-container'>
+							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+							</div>
+						</li>
+				  	<!-- /ko -->
+			  	</ul>
+			</div>
+			<div class='row chips'>
+				<ul class='inline-list'>
+			  		<!-- ko foreach: chips -->
+			  		<li class='chip-selection-container'>
+						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.selectChip'>
+							<span class='count' data-bind="text: $data.count()"></span>
+							<div class='select button secondary'>Select</div>
+						</div>
+			  		</li>
+			  		<!-- /ko -->
+			  	</ul>
+			</div>
+		</div>
+		<div class='info-section'>
+			<div class='row'>
+				<div class='medium-3 small-12 columns'>
+					<label class='current-player luckiest-guy' data-bind='text: "Player " + (currentPlayer().number + 1)' />
+				</div>
+				<div class='medium-9 small-12 columns'>
+					<span id='notification-area' />
+				</div>
+			</div>
+			<div class='row chip-selection panel'>
+				<div class='selected-chips medium-12 columns'>
+					<div class='no-selected-chips' data-bind='visible: !selectedChips().length'>
+						<h5>No chips selected</h5>
+					</div>
+					<ul class='inline-list'>
+						<!-- ko foreach: selectedChips -->
+						<li class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.removeChip'>
+							<div class='select remove button secondary'>Remove</div>
+						</li>
+						<!-- /ko -->
+					</ul>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='button expand success' data-bind='click: takeChips'>Confirm Chip Selection</div>
+			</div>
 
-  <div class='game-board'>
-    <div class='row nobles'>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/noble_tile.jpg'>
-      </div>
-      <!-- ko foreach: displayedCards.nobles -->
-      <div class='medium-2 columns'>
-        <img data-bind='attr: { src: $data.image }'>
-      </div>
-      <!-- /ko -->
-      <div class='medium-2 columns'>
-      </div>
-    </div>
-    <div class='row level3'>
-      <div class='medium-2 columns'>
-          <img src='../shiny/images/misc/level3_card.jpg'>
-      </div>
-      <!-- ko foreach: displayedCards.level3 -->
-      <div class='medium-2 columns'>
-        <div class='card'>
-          <img data-bind='attr: { src: $data.image }'>
-        </div>
-      </div>
-      <!-- /ko -->
-      <div class='medium-2 columns'>
-      </div>
-    </div>
-    <div class='row level2'>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level2_card.jpg'>
-      </div>
-      <!-- ko foreach: displayedCards.level2 -->
-      <div class='medium-2 columns'>
-        <div class='card' data-bind='style: { backgroundImage: $data.image }'>
-          <div class='buy'>Buy</div>
-          <div class='reserve'>Reserve</div>
-          <!-- <div class='card-image'>
-            <img data-bind='attr: { src: $data.image }'>
-          </div> -->
-        </div>
-      </div>
-      <!-- /ko -->
-      <div class='medium-2 columns'>
-      </div>
-    </div>
-    <div class='row level1'>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <!-- ko foreach: displayedCards.level1 -->
-      <div class='medium-2 columns'>
-        <div class='card'>
-          <img data-bind='attr: { src: $data.image }'>
-        </div>
-      </div>
-      <!-- /ko -->
-      <div class='medium-2 columns'>
-      </div>
-    </div>
-    <div class='row chips'>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-      <div class='medium-2 columns'>
-        <img src='../shiny/images/misc/level1_card.jpg'>
-      </div>
-    </div>
-  </div>
-
+			<div class='inventory'>
+				<div class='row player-list'>
+					<dl class='player-numbers tabs' data-tabs>
+						<!-- ko foreach: players -->
+							<dd data-bind='css: { active: $data === $parent.viewedPlayer() }'>
+								<a data-bind='text: "Player " + ($data.number + 1) + " (" + $data.points() + ")", css: { current-player: $data === $parent.currentPlayer() }, click: $parent.viewingPlayer' />
+							</dd>
+						<!-- /ko -->
+					</dl>
+					<div class='player-info tabs-content panel'>
+						<div class='row chip-inventory-container'>
+							<!-- ko foreach: chips -->
+							<div class='medium-2 columns chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+								<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color]()"></span>
+							</div>
+							<!-- /ko -->
+						</div>
+						<div class='row card-containers' data-bind='with: viewedPlayer'>
+							<div class='medium-2 columns card-stack white'>
+								<!-- ko foreach: purchasedWhiteCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", top: ($index() * -82).toString() + "px", right: "22px" }' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack blue'>
+								<!-- ko foreach: purchasedBlueCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", top: ($index() * -82).toString() + "px", right: "22px" }' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack green'>
+								<!-- ko foreach: purchasedGreenCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", top: ($index() * -82).toString() + "px", right: "22px" }' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack red'>
+								<!-- ko foreach: purchasedRedCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", top: ($index() * -82).toString() + "px", right: "22px" }' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack brown'>
+								<!-- ko foreach: purchasedBrownCards() -->
+								<div class='card inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", top: ($index() * -82).toString() + "px", right: "22px" }' />
+								<!-- /ko -->
+							</div>
+							<div class='medium-2 columns card-stack reserved'>
+								<!-- ko foreach: reservedCards() -->
+								<div class='reserved card inventory' data-bind='style: { background: "url(" + $root.path + "/images/misc/level" + $data.level + "_card.jpg)", background-size: "cover", position: "relative", top: ($index() * -50).toString() + "px", right: "22px" }'>
+									<div class='reserved-card-purchase selection' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover" }'>
+										<div class='buy button success' data-bind="click: $root.buyReservedCard, visible: $root.viewedPlayer() === $root.currentPlayer()">Buy</div>
+										</div>
+								</div>
+								<!-- /ko -->
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<script type='text/html' id='card-template'>
+	<li class='card-container'>
+		<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+			<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
+				<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+		</div>
+	</li>
+</script>
