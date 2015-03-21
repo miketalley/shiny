@@ -279,25 +279,25 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	};
 
 		  	this.points = ko.computed(function(){
-				var noblePoints = {
-						totalPoints: 0
+				var noble = {
+						points: 0
 					};
 
 				if(!thisPlayer.purchasedCards().length){
 			  		return 0;
 				}
 
-				var cardPoints = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
-			  		return { totalPoints: prev.points + curr.points };
+				var card = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
+			  		return { points: prev.points + curr.points };
 				});
 
 				if(thisPlayer.nobleCards().length){
-					noblePoints = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
-				  		return { totalPoints: prev.points + curr.points };
+					noble = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+				  		return { points: prev.points + curr.points };
 					});
 				}
 
-				return cardPoints.totalPoints + noblePoints.totalPoints;
+				return card.points + noble.points;
 		  	});
 
 		  	this.cardsOfColor = function(color){
