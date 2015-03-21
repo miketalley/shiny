@@ -100,7 +100,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	nextPlayerTurn();
 		};
 
-		self.buyCard = function(card){
+		self.buyCard = function(card, reserved){
 			var purchaseDetails = canAffordCard(card);
 
 			if(purchaseDetails){
@@ -109,7 +109,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	if(confirmed){
 			  		var currentPlayer = self.currentPlayer(),
 			  			deckType = 'level' + card.level,
-			  			index = self.displayedCards[deckType].indexOf(card);
+			  			index = self.displayedCards[deckType].indexOf(card),
+              purchasedCard;
 
 			  		for(var chipColor in card.cost){
 			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
@@ -124,7 +125,13 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() -= purchaseDetails.yellowChipsNeeded);
 			  		}
 
-			  		var purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
+			  		if(!reserved){
+              purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
+            }
+            else{
+              var index = currentPlayer.reservedCards().indexOf(card);
+              purchasedCard = currentPlayer.reservedCards().splice(index, 1)[0];
+            }
 
 					currentPlayer.purchasedCards.push(purchasedCard);
 					flipCard(deckType, index);
@@ -157,7 +164,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		self.buyReservedCard = function(card){
 			if(self.viewedPlayer() === self.currentPlayer()){
-				self.buyCard(card);
+				self.buyCard(card, true);
 			}
 		};
 
