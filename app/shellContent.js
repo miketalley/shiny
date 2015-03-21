@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../Splendor';
+		self.path = '../shiny';
 		// ../
 
 		self.chips = [
@@ -305,8 +305,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 				return this['purchased' + colorUpperCase + 'Cards']();
 			}
-		  	
-		  	return this;	
+
+		  	return this;
 		}
 
 		function chipSelectionValid(chip){
@@ -367,7 +367,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		function currentPlayerChipCount(){
 			var chips = self.currentPlayer().chips,
 				sum = 0;
-			
+
 			for(var prop in chips){
 				sum += chips[prop]();
 			}
@@ -393,8 +393,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			if(!deficitArray.length){
 				return true;
-			} 
-			else if(yellowChips > yellowChipsNeeded){
+			}
+			else if(yellowChips >= yellowChipsNeeded){
 				var confirmed = confirm('This transaction requires you to spend ' + yellowChipsNeeded + ' yellow chips. Are you sure?');
 				if(confirmed){
 					return {
@@ -420,7 +420,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				if(requirements.indexOf(false) === -1){
 					currentPlayer.nobleCards.push(nobles[i]);
 					flipCard('nobles', i);
-				}	
+				}
 			}
 		}
 
@@ -429,7 +429,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			setTimeout(function(){
 				$('#notification-area').text(null);
-			}, 1000);
+			}, 2000);
 
 			return false;
 		}
