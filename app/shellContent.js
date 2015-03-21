@@ -88,7 +88,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		self.activate = function(){
 			var numPlayers;
 
-			while(!numPlayers){
+			while(!numPlayers || numPlayers < 2 || numPlayers > 4){
 		  		numPlayers = prompt("Enter number of players: ", "2");
 			}
 		  	self.numPlayers(numPlayers);
