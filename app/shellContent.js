@@ -418,7 +418,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				}
 
 				if(requirements.indexOf(false) === -1){
-					currentPlayer.nobleCards.push(noble[i]);
+					currentPlayer.nobleCards.push(nobles[i]);
 					flipCard('nobles', i);
 				}	
 			}
