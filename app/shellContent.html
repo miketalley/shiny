@@ -21,8 +21,8 @@
 					<!-- ko foreach: displayedCards.level3 -->
 				 		<li class='card-container'>
 							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
-									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
 						</li>
 				  	<!-- /ko -->
@@ -36,8 +36,8 @@
 					<!-- ko foreach: displayedCards.level2 -->
 				 		<li class='card-container'>
 							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
-									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
 						</li>
 				  	<!-- /ko -->
@@ -51,8 +51,8 @@
 					<!-- ko foreach: displayedCards.level1 -->
 				 		<li class='card-container'>
 							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
-								<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
-									<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
+								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
+									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
 						</li>
 				  	<!-- /ko -->

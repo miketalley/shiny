@@ -63,6 +63,21 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	level1: ko.observableArray()
 		};
 
+		self.cardPlaceholder = {
+				nobles: {
+					image: '/images/misc/noble_tile.jpg'
+				},
+				level3: {
+					image: '/images/misc/level3_card.jpg'
+				},
+				level2: {
+					image: '/images/misc/level2_card.jpg'
+				},
+				level1: {
+					image: '/images/misc/level1_card.jpg'
+				}
+		};
+
 		self.numPlayers = ko.observable();
 		self.players = ko.observableArray();
 		self.currentPlayer = ko.observable();
@@ -243,7 +258,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		  	// Flip numPlayers + 1 noble tiles
 		  	for(var i = 0; i <= numPlayers; i++){
-				flipCard('nobles', i);
+					flipCard('nobles', i);
 		  	}
 
 		  	// Flip 4 cards for each level
@@ -255,7 +270,15 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		}
 
 		function flipCard(type, position){
-		  	self.displayedCards[type].splice(position, 0, decks[type].shift());
+				var newCardFromDeck = decks[type].shift();
+
+				if(newCardFromDeck){
+		  		self.displayedCards[type].splice(position, 0, newCardFromDeck);
+				}
+				else{
+					var placeholder = self.cardPlaceholder[type];
+					self.displayedCards[type].splice(position, 0, placeholder);
+				}
 		}
 
 		function Player(){
