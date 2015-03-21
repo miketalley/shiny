@@ -412,7 +412,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 					cost = nobles[i].cost;
 
 				for(var color in cost){
-					requirements.push(currentPlayer.cardsOfColor(color) >= cost[color]);
+					requirements.push((currentPlayer.cardsOfColor(color).length + 1) >= cost[color]);
 				}
 
 				if(requirements.indexOf(false) === -1){
