@@ -86,7 +86,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		});
 
 		self.activate = function(){
-		  	var numPlayers = prompt("Enter number of players: ", "2");
+			var numPlayers;
+
+			while(!numPlayers){
+		  		numPlayers = prompt("Enter number of players: ", "2");
+			}
 		  	self.numPlayers(numPlayers);
 		  	self.currentPlayer({
 		  		number: -1
@@ -117,7 +121,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  		}
 
 			  		if(purchaseDetails.yellowChipsNeeded){
-			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow -= purchaseDetails.yellowChipsNeeded);
+			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() -= purchaseDetails.yellowChipsNeeded);
 			  		}
 
 			  		var purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
@@ -270,6 +274,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	};
 
 		  	this.points = ko.computed(function(){
+				var noblePoints = 0;
+
 				if(!thisPlayer.purchasedCards().length){
 			  		return 0;
 				}
@@ -278,9 +284,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  		return prev.points + curr.points;
 				});
 
-				var noblePoints = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
-			  		return prev.points + curr.points;
-				});
+				if(thisPlayer.nobleCards().length){
+					noblePoints = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+				  		return prev.points + curr.points;
+					});
+				}
 
 				return cardPoints + noblePoints;
 		  	});
@@ -392,7 +400,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		}
 
 		function checkNobleVisits(currentPlayer){
-			var nobles = self.displayedCards().nobles;
+			var nobles = self.displayedCards.nobles();
 
 			for(var i = 0; i < nobles.length; i++){
 				var requirements = [],
