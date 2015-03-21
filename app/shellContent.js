@@ -183,7 +183,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	var currentPlayer = self.currentPlayer(),
 		  		selectedChips = self.selectedChips();
 
-		  	if(selectedChips.length > 2){
+		  	if(selectedChips.length > 1){
 			  	for(var i = 0; i < selectedChips.length; i++){
 			  		currentPlayer.chips[selectedChips[i].color](currentPlayer.chips[selectedChips[i].color]() + 1);
 			  	}
