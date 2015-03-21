@@ -100,7 +100,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	nextPlayerTurn();
 		};
 
-		self.buyCard = function(card, reserved){
+		self.buyCard = function(card, event, reserved){
 			var purchaseDetails = canAffordCard(card);
 
 			if(purchaseDetails){
@@ -113,8 +113,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
               purchasedCard;
 
 			  		for(var chipColor in card.cost){
-			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
-			  				ownedCardsThisColor = currentPlayer.purchasedCards().filter(function(card){ return card.color === chipColor; }).length,
+			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0],
+			  				ownedCardsThisColor = currentPlayer.cardsOfColor(chipColor),
 			  				chipCost = Math.max((card.cost[chipColor] - ownedCardsThisColor), 0);
 
 			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
@@ -122,16 +122,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  		}
 
 			  		if(purchaseDetails.yellowChipsNeeded){
-			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() -= purchaseDetails.yellowChipsNeeded);
+			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() - purchaseDetails.yellowChipsNeeded);
 			  		}
 
-			  		if(!reserved){
-              purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
-					    flipCard(deckType, index);
-            }
-            else{
+            if(reserved){
               index = currentPlayer.reservedCards().indexOf(card);
               purchasedCard = currentPlayer.reservedCards().splice(index, 1)[0];
+            }
+			  		else{
+              purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
+					    flipCard(deckType, index);
             }
 
             currentPlayer.purchasedCards.push(purchasedCard);
@@ -164,7 +164,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		self.buyReservedCard = function(card){
 			if(self.viewedPlayer() === self.currentPlayer()){
-				self.buyCard(card, true);
+				self.buyCard(card, null, true);
 			}
 		};
 
@@ -263,26 +263,36 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		  	this.purchasedCards = ko.observableArray();
 		  	this.purchasedWhiteCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'white'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'white';
+		  		});
 		  	});
 		  	this.purchasedBlueCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'blue'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'blue';
+		  		});
 		  	});
 		  	this.purchasedGreenCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'green'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'green';
+		  		});
 		  	});
 		  	this.purchasedRedCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'red'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'red';
+		  		});
 		  	});
 		  	this.purchasedBrownCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'brown'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'brown';
+		  		});
 		  	});
 
 		  	this.reservedCards = ko.observableArray();
 		  	this.nobleCards = ko.observableArray();
 
 		  	this.chips = {
-				white: ko.observable(0),
+					white: ko.observable(0),
 			  	blue: ko.observable(0),
 			  	green: ko.observable(0),
 			  	red: ko.observable(0),
@@ -291,32 +301,32 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	};
 
 		  	this.points = ko.computed(function(){
-				var noble = {
-						points: 0
-					};
+					var noble = {
+							points: 0
+						};
 
-				if(!thisPlayer.purchasedCards().length){
-			  		return 0;
-				}
+					if(!thisPlayer.purchasedCards().length){
+				  		return 0;
+					}
 
-				var card = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
-			  		return { points: prev.points + curr.points };
-				});
-
-				if(thisPlayer.nobleCards().length){
-					noble = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+					var card = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
 				  		return { points: prev.points + curr.points };
 					});
-				}
 
-				return card.points + noble.points;
+					if(thisPlayer.nobleCards().length){
+						noble = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+					  		return { points: prev.points + curr.points };
+						});
+					}
+
+					return card.points + noble.points;
 		  	});
 
 		  	this.cardsOfColor = function(color){
-				var colorUpperCase = color.charAt(0).toUpperCase() + color.slice(1, color.length);
+					var colorUpperCase = color.charAt(0).toUpperCase() + color.slice(1, color.length);
 
-				return this['purchased' + colorUpperCase + 'Cards']();
-			}
+					return this['purchased' + colorUpperCase + 'Cards']();
+				};
 
 		  	return this;
 		}
@@ -411,7 +421,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				if(confirmed){
 					return {
 						yellowsChipsNeeded: yellowChipsNeeded
-					}
+					};
 				}
 			}
 
