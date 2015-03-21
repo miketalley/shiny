@@ -110,7 +110,7 @@
 					<div class='player-info tabs-content panel'>
 						<div class='row chip-inventory-container'>
 							<!-- ko foreach: chips -->
-							<div class='medium-2 columns chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+							<div class='medium-2 columns chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $root.selectChip'>
 								<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color]()"></span>
 							</div>
 							<!-- /ko -->
@@ -150,7 +150,7 @@
 								</div>
 								<!-- /ko -->
 							</div>
-						</div>					
+						</div>
 					</div>
 				</div>
 			</div>

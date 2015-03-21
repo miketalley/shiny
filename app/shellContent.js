@@ -263,19 +263,19 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		  	this.purchasedCards = ko.observableArray();
 		  	this.purchasedWhiteCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'white'});
+		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'white'});
 		  	});
 		  	this.purchasedBlueCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'blue'});
+		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'blue'});
 		  	});
 		  	this.purchasedGreenCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'green'});
+		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'green'});
 		  	});
 		  	this.purchasedRedCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'red'});
+		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'red'});
 		  	});
 		  	this.purchasedBrownCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'brown'});
+		  		return thisPlayer.purchasedCards().length && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'brown'});
 		  	});
 
 		  	this.reservedCards = ko.observableArray();
