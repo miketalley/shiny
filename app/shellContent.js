@@ -7,7 +7,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../';
+		self.path = '../Splendor';
+		// ../
 
 		self.chips = [
 			{
@@ -117,6 +118,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 					currentPlayer.purchasedCards.push(purchasedCard);
 					flipCard(cardLevel, index);
+					checkNobleVisits(currentPlayer);
 					nextPlayerTurn();
 			  	}
 			}
@@ -250,6 +252,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	});
 
 		  	this.reservedCards = ko.observableArray();
+		  	this.nobleCards = ko.observableArray();
 
 		  	this.chips = {
 				white: ko.observable(0),
@@ -264,14 +267,25 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				if(!thisPlayer.purchasedCards().length){
 			  		return 0;
 				}
-				return thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
+
+				var cardPoints = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
 			  		return prev.points + curr.points;
 				});
+
+				var noblePoints = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+			  		return prev.points + curr.points;
+				});
+
+				return cardPoints + noblePoints;
 		  	});
 
+		  	this.cardsOfColor = function(color){
+				var colorUpperCase = color.charAt(0).toUpperCase() + color.slice(1, color.length);
+
+				return this['purchased' + colorUpperCase + 'Cards']();
+			}
 		  	
-		  	return this;
-			
+		  	return this;	
 		}
 
 		function chipSelectionValid(chip){
@@ -344,11 +358,28 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			var currentPlayer = self.currentPlayer();
 
 			var deficit = Object.keys(card.cost).filter(function(color){
-				var colorUpperCase = colorcharAt(0).toUpperCase() + color.slice(1, color.length);
-				return (currentPlayer.chips[color]() + currentPlayer['purchased' + colorUpperCase + 'Cards']()) < card.cost[color];
+				return (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color) < card.cost[color];
 			});
 
 			return deficit.length ? notification('You do not have enough chips to buy this card!') : true;
+		}
+
+		function checkNobleVisits(currentPlayer){
+			var nobles = self.displayedCards().nobles;
+
+			for(var i = 0; i < nobles.length; i++){
+				var requirements = [],
+					cost = nobles[i].cost;
+
+				for(var color in cost){
+					requirements.push(currentPlayer.cardsOfColor(color) >= cost[color]);
+				}
+
+				if(requirements.indexOf(false) === -1){
+					currentPlayer.nobleCards.push(noble[i]);
+					flipCard('nobles', i);
+				}	
+			}
 		}
 
 		function notification(message){
@@ -360,6 +391,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			return false;
 		}
+
 	}
 
   	return Home;
