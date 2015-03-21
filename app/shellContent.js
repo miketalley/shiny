@@ -127,16 +127,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			  		if(!reserved){
               purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
+					    flipCard(deckType, index);
             }
             else{
-              var index = currentPlayer.reservedCards().indexOf(card);
+              index = currentPlayer.reservedCards().indexOf(card);
               purchasedCard = currentPlayer.reservedCards().splice(index, 1)[0];
             }
 
-					currentPlayer.purchasedCards.push(purchasedCard);
-					flipCard(deckType, index);
-					checkNobleVisits(currentPlayer);
-					nextPlayerTurn();
+            currentPlayer.purchasedCards.push(purchasedCard);
+					  checkNobleVisits(currentPlayer);
+					  nextPlayerTurn();
 			  	}
 			}
 		};
@@ -186,7 +186,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			self.viewedPlayer(player);
 		};
 
-		self.takeChips = function(){
+		self.takeChips = function(model, event){
 		  	var currentPlayer = self.currentPlayer(),
 		  		selectedChips = self.selectedChips();
 
@@ -198,6 +198,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	self.selectedChips([]);
 			  	nextPlayerTurn();
 		  	}
+        else if(event.shiftKey && confirm('Are you sure you want to forfeit your turn?')){
+          notification('TURN FORFEITED!');
+          self.selectedChips([]);
+          nextPlayerTurn();
+        }
 		  	else{
 		  		notification('Please select up to three chips!');
 		  	}
