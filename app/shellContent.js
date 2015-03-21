@@ -86,7 +86,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		});
 
 		self.activate = function(){
-		  	self.numPlayers(4);
+		  	var numPlayers = prompt("Enter number of players: ", "2");
+		  	self.numPlayers(numPlayers);
 		  	self.currentPlayer({
 		  		number: -1
 		  	});
