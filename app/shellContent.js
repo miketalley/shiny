@@ -114,7 +114,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  		for(var chipColor in card.cost){
 			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
 			  				ownedCardsThisColor = currentPlayer.purchasedCards().filter(function(card){ return card.color === chipColor; }).length,
-			  				chipCost = Math.max((card.cost[chipColor] - ownedCardsThisColor), 0)
+			  				chipCost = Math.max((card.cost[chipColor] - ownedCardsThisColor), 0);
 
 			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
 			  			chipObj.count(chipObj.count() + chipCost);
