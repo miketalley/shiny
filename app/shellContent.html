@@ -8,7 +8,7 @@
 					</li>
 				  	<!-- ko foreach: displayedCards.nobles -->
 				  	<li class='noble'>
-				  		<img class='tile' data-bind='attr: { src: $parent.path + $data.image }' />
+				  		<img class='tile' data-bind='attr: { src: $root.path + $data.image }' />
 				  	</li>
 				  	<!-- /ko -->
 				</ul>
@@ -154,7 +154,7 @@
   								<!-- /ko -->
   							</li>
                 <li class='card-stack nobles'>
-                  <!-- ko foreach: nobleCardsCards() -->
+                  <!-- ko foreach: nobleCards() -->
                   <div class='noble inventory' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover", position: "relative", right: "18px" }'>
                     <div class='reserved-card-purchase selection' data-bind='style: { background: "url(" + $root.path + $data.image + ")", background-size: "cover" }' />
                   <!-- /ko -->
@@ -169,11 +169,11 @@
 	</div>
 </div>
 
-<script type='text/html' id='card-template'>
+<!-- <script type='text/html' id='card-template'>
 	<li class='card-container'>
 		<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
 			<div class='buy button success' data-bind="click: $parent.buyCard">Buy</div>
 				<div class='reserve button' data-bind="click: $parent.reserveCard">Reserve</div>
 		</div>
 	</li>
-</script>
+</script> -->
