@@ -49,12 +49,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			}
 		];
 
-		decks = {
-		  	nobles: methods.shuffle(nobles.cards),
-		  	level3: methods.shuffle(level3.cards),
-		  	level2: methods.shuffle(level2.cards),
-		  	level1: methods.shuffle(level1.cards)
-		};
+		decks = {};
 
 		self.displayedCards = {
 		  	nobles: ko.observableArray(),
@@ -88,11 +83,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		self.playerWon = ko.computed(function(){
 		  	return self.players().filter(function(player, i, array){
-				return player.points() >= 15;
-		  	}).length;
+					return player.points() >= 15;
+		  	})[0];
 		});
 
 		self.numPlayers.subscribe(function(newVal){
+				self.players([]);
 		  	for(var i = 0; i < newVal; i++){
 				var player = new Player();
 				player.number = i;
@@ -111,6 +107,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		number: -1
 		  	});
 
+		  	shuffleDecks();
 		  	flipInitialCards();
 		  	nextPlayerTurn();
 		};
@@ -234,14 +231,14 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		  	// If the final player in each round just went
 		  	if(currentPlayerNum === (self.numPlayers() - 1)){
-				// Check if somebody won and display winner if so
-				if(self.playerWon()){
-			  		displayWinner();
-				}
-				// If not switch back to player 1
-				else{
-			  		self.currentPlayer(players[0]);
-				}
+					// Check if somebody won and display winner if so
+					if(self.playerWon()){
+				  		displayWinner();
+					}
+					// If not switch back to player 1
+					else{
+				  		self.currentPlayer(players[0]);
+					}
 		  	}
 		  	// Switch to the next player
 		  	else{
@@ -251,6 +248,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	self.viewedPlayer(self.currentPlayer());
 		}
 
+		function shuffleDecks(){
+				decks.nobles = methods.shuffle(nobles.cards);
+		  	decks.level3 = methods.shuffle(level3.cards);
+		  	decks.level2 = methods.shuffle(level2.cards);
+		  	decks.level1 = methods.shuffle(level1.cards);
+		}
 
 		function flipInitialCards(){
 		  	var numPlayers = self.numPlayers();
@@ -467,6 +470,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				}
 			}
 		}
+
+		function displayWinner(){
+			var winningPlayer = self.playerWon();
+
+			alert('Player ' + winningPlayer.number + ' won the game!');
+
+			if(confirm('Would you like to play again?')){
+				self.activate();
+			}
+		};
 
 		function notification(message){
 			$('#notification-area').text(message);
