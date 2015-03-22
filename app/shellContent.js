@@ -107,7 +107,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		number: -1
 		  	});
 
-		  	shuffleDecks();
+		  	resetGameVariables();
 		  	flipInitialCards();
 		  	nextPlayerTurn();
 		};
@@ -255,11 +255,21 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	self.viewedPlayer(self.currentPlayer());
 		}
 
-		function shuffleDecks(){
+		function resetGameVariables(){
 				decks.nobles = methods.shuffle(nobles.cards);
 		  	decks.level3 = methods.shuffle(level3.cards);
 		  	decks.level2 = methods.shuffle(level2.cards);
 		  	decks.level1 = methods.shuffle(level1.cards);
+
+		  	for(var deck in self.displayedCards()){
+		  		deck([]);
+		  	}
+
+		  	self.selectedChips([]);
+
+		  	for(var chip in self.chips()){
+		  		chip.color === 'yellow' ? chip.count(5) : chip.count(7);
+		  	}
 		}
 
 		function flipInitialCards(){
