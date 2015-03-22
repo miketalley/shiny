@@ -99,17 +99,19 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		self.activate = function(){
 			var numPlayers;
 
+	  	resetGameVariables();
+
 			while(!numPlayers || numPlayers < 2 || numPlayers > 4){
 		  		numPlayers = prompt("Enter number of players: ", "2");
 			}
-		  	self.numPlayers(numPlayers);
-		  	self.currentPlayer({
-		  		number: -1
-		  	});
 
-		  	resetGameVariables();
-		  	flipInitialCards();
-		  	nextPlayerTurn();
+	  	self.numPlayers(numPlayers);
+	  	self.currentPlayer({
+	  		number: -1
+	  	});
+
+	  	flipInitialCards();
+	  	nextPlayerTurn();
 		};
 
 		self.buyCard = function(card, event, reserved){
@@ -261,14 +263,16 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	decks.level2 = methods.shuffle(level2.cards);
 		  	decks.level1 = methods.shuffle(level1.cards);
 
-		  	for(var deck in self.displayedCards()){
-		  		deck([]);
-		  	}
-
 		  	self.selectedChips([]);
 
-		  	for(var chip in self.chips()){
-		  		chip.color === 'yellow' ? chip.count(5) : chip.count(7);
+		  	for(var deck in self.displayedCards){
+		  		self.displayedCards[deck]([]);
+		  	}
+
+		  	for(var i = 0; i < self.chips.length; i++){
+		  		var resetCount = self.chips[i].color === 'yellow' ? 5 : 7;
+
+		  		self.chips[i].count(resetCount);
 		  	}
 		}
 
@@ -494,12 +498,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		function displayWinner(){
 			var winningPlayer = self.playerWon();
 
-			alert('Player ' + winningPlayer.number + ' won the game!');
+			alert('Player ' + (winningPlayer.number + 1).toString() + ' won the game!');
 
 			if(confirm('Would you like to play again?')){
 				self.activate();
 			}
-		};
+		}
 
 		function notification(message){
 			$('#notification-area').text(message);
