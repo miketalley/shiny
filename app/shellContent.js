@@ -124,6 +124,17 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  			index = self.displayedCards[deckType].indexOf(card),
               purchasedCard;
 
+            // If yellow chips are needed, substitute them for chips
+            // that are lacking
+            if(purchaseDetails.yellowChipsNeeded){
+            	var missing = purchaseDetails.chipsLacked;
+
+            	for(var color in missing){
+			  				currentPlayer.chips.yellow(currentPlayer.chips.yellow() - missing[color]);
+			  				currentPlayer.chips[color](currentPlayer.chips[color]() + missing[color]);
+            	}
+			  		}
+
 			  		for(var chipColor in card.cost){
 			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0],
 			  				ownedCardsThisColor = currentPlayer.cardsOfColor(chipColor).length,
@@ -131,10 +142,6 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
 			  			chipObj.count(chipObj.count() + chipCost);
-			  		}
-
-			  		if(purchaseDetails.yellowChipsNeeded){
-			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() - purchaseDetails.yellowChipsNeeded);
 			  		}
 
             if(reserved){
@@ -425,13 +432,15 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		 function canAffordCard(card){
 			var currentPlayer = self.currentPlayer(),
 				yellowChips = currentPlayer.chips.yellow(),
-				yellowChipsNeeded = 0;
+				yellowChipsNeeded = 0,
+				chipsLacked = {};
 
 			var deficitArray = Object.keys(card.cost).filter(function(color){
 				var deficit = card.cost[color] - (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color).length);
 
 				if(deficit > 0){
 					yellowChipsNeeded = yellowChipsNeeded + deficit;
+					chipsLacked[color] = deficit;
 					return true;
 				}
 
@@ -445,7 +454,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				var confirmed = confirm('This transaction requires you to spend ' + yellowChipsNeeded + ' yellow chips. Are you sure?');
 				if(confirmed){
 					return {
-						yellowsChipsNeeded: yellowChipsNeeded
+						yellowsChipsNeeded: yellowChipsNeeded,
+						chipsLacked: chipsLacked
 					};
 				}
 			}
