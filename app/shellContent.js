@@ -209,13 +209,10 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	for(var i = 0; i < selectedChips.length; i++){
 			  		currentPlayer.chips[selectedChips[i].color](currentPlayer.chips[selectedChips[i].color]() + 1);
 			  	}
-
-			  	self.selectedChips([]);
 			  	nextPlayerTurn();
 		  	}
         else if(event.shiftKey && confirm('Are you sure you want to forfeit your turn?')){
           notification('TURN FORFEITED!');
-          self.selectedChips([]);
           nextPlayerTurn();
         }
 		  	else{
@@ -232,6 +229,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		function nextPlayerTurn(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
+
+				self.selectedChips([]);
 
 		  	// If the final player in each round just went
 		  	if(currentPlayerNum === (self.numPlayers() - 1)){
@@ -426,7 +425,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 				yellowChipsNeeded = 0;
 
 			var deficitArray = Object.keys(card.cost).filter(function(color){
-				var deficit = card.cost[color] - (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color));
+				var deficit = card.cost[color] - (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color).length);
 
 				if(deficit > 0){
 					yellowChipsNeeded = yellowChipsNeeded + deficit;
@@ -459,11 +458,11 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 					cost = nobles[i].cost;
 
 				for(var color in cost){
-					requirements.push((currentPlayer.cardsOfColor(color).length + 1) >= cost[color]);
+					requirements.push((currentPlayer.cardsOfColor(color).length) >= cost[color]);
 				}
 
 				if(requirements.indexOf(false) === -1){
-					currentPlayer.nobleCards.push(nobles[i]);
+					currentPlayer.nobleCards.push(nobles.splice(i, 1)[0]);
 					flipCard('nobles', i);
 				}
 			}
