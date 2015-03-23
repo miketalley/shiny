@@ -7,7 +7,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../Splendor';
+		self.path = '../shiny';
 		// ../
 
 		self.chips = [
@@ -49,18 +49,28 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			}
 		];
 
-		decks = {
-		  	nobles: methods.shuffle(nobles.cards),
-		  	level3: methods.shuffle(level3.cards),
-		  	level2: methods.shuffle(level2.cards),
-		  	level1: methods.shuffle(level1.cards)
-		};
+		decks = {};
 
 		self.displayedCards = {
 		  	nobles: ko.observableArray(),
 		  	level3: ko.observableArray(),
 		  	level2: ko.observableArray(),
 		  	level1: ko.observableArray()
+		};
+
+		self.cardPlaceholder = {
+				nobles: {
+					image: '/images/misc/noble_tile.jpg'
+				},
+				level3: {
+					image: '/images/misc/level3_card.jpg'
+				},
+				level2: {
+					image: '/images/misc/level2_card.jpg'
+				},
+				level1: {
+					image: '/images/misc/level1_card.jpg'
+				}
 		};
 
 		self.numPlayers = ko.observable();
@@ -73,11 +83,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		self.playerWon = ko.computed(function(){
 		  	return self.players().filter(function(player, i, array){
-				return player.points() >= 15;
-		  	}).length;
+					return player.points() >= 15;
+		  	})[0];
 		});
 
 		self.numPlayers.subscribe(function(newVal){
+				self.players([]);
 		  	for(var i = 0; i < newVal; i++){
 				var player = new Player();
 				player.number = i;
@@ -88,19 +99,22 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		self.activate = function(){
 			var numPlayers;
 
+	  	resetGameVariables();
+
 			while(!numPlayers || numPlayers < 2 || numPlayers > 4){
 		  		numPlayers = prompt("Enter number of players: ", "2");
 			}
-		  	self.numPlayers(numPlayers);
-		  	self.currentPlayer({
-		  		number: -1
-		  	});
 
-		  	flipInitialCards();
-		  	nextPlayerTurn();
+	  	self.numPlayers(numPlayers);
+	  	self.currentPlayer({
+	  		number: -1
+	  	});
+
+	  	flipInitialCards();
+	  	nextPlayerTurn();
 		};
 
-		self.buyCard = function(card){
+		self.buyCard = function(card, event, reserved){
 			var purchaseDetails = canAffordCard(card);
 
 			if(purchaseDetails){
@@ -109,27 +123,41 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	if(confirmed){
 			  		var currentPlayer = self.currentPlayer(),
 			  			deckType = 'level' + card.level,
-			  			index = self.displayedCards[deckType].indexOf(card);
+			  			index = self.displayedCards[deckType].indexOf(card),
+              purchasedCard;
+
+            // If yellow chips are needed, substitute them for chips
+            // that are lacking
+            if(purchaseDetails.yellowChipsNeeded){
+            	var missing = purchaseDetails.chipsLacked;
+
+            	for(var color in missing){
+			  				currentPlayer.chips.yellow(currentPlayer.chips.yellow() - missing[color]);
+			  				currentPlayer.chips[color](currentPlayer.chips[color]() + missing[color]);
+            	}
+			  		}
 
 			  		for(var chipColor in card.cost){
-			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0];
-			  				ownedCardsThisColor = currentPlayer.purchasedCards().filter(function(card){ return card.color === chipColor; }).length,
+			  			var chipObj = self.chips.filter(function(chip){ return chip.color === chipColor; })[0],
+			  				ownedCardsThisColor = currentPlayer.cardsOfColor(chipColor).length,
 			  				chipCost = Math.max((card.cost[chipColor] - ownedCardsThisColor), 0);
 
 			  			currentPlayer.chips[chipColor](currentPlayer.chips[chipColor]() - chipCost);
 			  			chipObj.count(chipObj.count() + chipCost);
 			  		}
 
-			  		if(purchaseDetails.yellowChipsNeeded){
-			  			currentPlayer.chips.yellow(currentPlayer.chips.yellow() -= purchaseDetails.yellowChipsNeeded);
-			  		}
+            if(reserved){
+              index = currentPlayer.reservedCards().indexOf(card);
+              purchasedCard = currentPlayer.reservedCards().splice(index, 1)[0];
+            }
+			  		else{
+              purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
+					    flipCard(deckType, index);
+            }
 
-			  		var purchasedCard = self.displayedCards[deckType].splice(index, 1)[0];
-
-					currentPlayer.purchasedCards.push(purchasedCard);
-					flipCard(deckType, index);
-					checkNobleVisits(currentPlayer);
-					nextPlayerTurn();
+            currentPlayer.purchasedCards.push(purchasedCard);
+					  checkNobleVisits(currentPlayer);
+					  nextPlayerTurn();
 			  	}
 			}
 		};
@@ -157,7 +185,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		self.buyReservedCard = function(card){
 			if(self.viewedPlayer() === self.currentPlayer()){
-				self.buyCard(card);
+				self.buyCard(card, null, true);
 			}
 		};
 
@@ -179,7 +207,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			self.viewedPlayer(player);
 		};
 
-		self.takeChips = function(){
+		self.takeChips = function(model, event){
 		  	var currentPlayer = self.currentPlayer(),
 		  		selectedChips = self.selectedChips();
 
@@ -187,10 +215,12 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			  	for(var i = 0; i < selectedChips.length; i++){
 			  		currentPlayer.chips[selectedChips[i].color](currentPlayer.chips[selectedChips[i].color]() + 1);
 			  	}
-
-			  	self.selectedChips([]);
 			  	nextPlayerTurn();
 		  	}
+        else if(event.shiftKey && confirm('Are you sure you want to forfeit your turn?')){
+          notification('TURN FORFEITED!');
+          nextPlayerTurn();
+        }
 		  	else{
 		  		notification('Please select up to three chips!');
 		  	}
@@ -206,16 +236,18 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
 
+				self.selectedChips([]);
+
 		  	// If the final player in each round just went
 		  	if(currentPlayerNum === (self.numPlayers() - 1)){
-				// Check if somebody won and display winner if so
-				if(self.playerWon()){
-			  		displayWinner();
-				}
-				// If not switch back to player 1
-				else{
-			  		self.currentPlayer(players[0]);
-				}
+					// Check if somebody won and display winner if so
+					if(self.playerWon()){
+				  		displayWinner();
+					}
+					// If not switch back to player 1
+					else{
+				  		self.currentPlayer(players[0]);
+					}
 		  	}
 		  	// Switch to the next player
 		  	else{
@@ -225,13 +257,31 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	self.viewedPlayer(self.currentPlayer());
 		}
 
+		function resetGameVariables(){
+				decks.nobles = methods.shuffle(nobles.cards);
+		  	decks.level3 = methods.shuffle(level3.cards);
+		  	decks.level2 = methods.shuffle(level2.cards);
+		  	decks.level1 = methods.shuffle(level1.cards);
+
+		  	self.selectedChips([]);
+
+		  	for(var deck in self.displayedCards){
+		  		self.displayedCards[deck]([]);
+		  	}
+
+		  	for(var i = 0; i < self.chips.length; i++){
+		  		var resetCount = self.chips[i].color === 'yellow' ? 5 : 7;
+
+		  		self.chips[i].count(resetCount);
+		  	}
+		}
 
 		function flipInitialCards(){
 		  	var numPlayers = self.numPlayers();
 
 		  	// Flip numPlayers + 1 noble tiles
 		  	for(var i = 0; i <= numPlayers; i++){
-				flipCard('nobles', i);
+					flipCard('nobles', i);
 		  	}
 
 		  	// Flip 4 cards for each level
@@ -243,7 +293,15 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		}
 
 		function flipCard(type, position){
-		  	self.displayedCards[type].splice(position, 0, decks[type].shift());
+				var newCardFromDeck = decks[type].shift();
+
+				if(newCardFromDeck){
+		  		self.displayedCards[type].splice(position, 0, newCardFromDeck);
+				}
+				else{
+					var placeholder = self.cardPlaceholder[type];
+					self.displayedCards[type].splice(position, 0, placeholder);
+				}
 		}
 
 		function Player(){
@@ -251,26 +309,36 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 		  	this.purchasedCards = ko.observableArray();
 		  	this.purchasedWhiteCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'white'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'white';
+		  		});
 		  	});
 		  	this.purchasedBlueCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'blue'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'blue';
+		  		});
 		  	});
 		  	this.purchasedGreenCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'green'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'green';
+		  		});
 		  	});
 		  	this.purchasedRedCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'red'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'red';
+		  		});
 		  	});
 		  	this.purchasedBrownCards = ko.computed(function(){
-		  		return thisPlayer.purchasedCards() && thisPlayer.purchasedCards().filter(function(card){ return card.color === 'brown'});
+		  		return thisPlayer.purchasedCards().filter(function(card){
+		  			return card.color === 'brown';
+		  		});
 		  	});
 
 		  	this.reservedCards = ko.observableArray();
 		  	this.nobleCards = ko.observableArray();
 
 		  	this.chips = {
-				white: ko.observable(0),
+					white: ko.observable(0),
 			  	blue: ko.observable(0),
 			  	green: ko.observable(0),
 			  	red: ko.observable(0),
@@ -279,34 +347,34 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  	};
 
 		  	this.points = ko.computed(function(){
-				var noble = {
-						points: 0
-					};
+					var noble = {
+							points: 0
+						};
 
-				if(!thisPlayer.purchasedCards().length){
-			  		return 0;
-				}
+					if(!thisPlayer.purchasedCards().length){
+				  		return 0;
+					}
 
-				var card = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
-			  		return { points: prev.points + curr.points };
-				});
-
-				if(thisPlayer.nobleCards().length){
-					noble = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+					var card = thisPlayer.purchasedCards().reduce(function(prev, curr, i, array){
 				  		return { points: prev.points + curr.points };
 					});
-				}
 
-				return card.points + noble.points;
+					if(thisPlayer.nobleCards().length){
+						noble = thisPlayer.nobleCards().reduce(function(prev, curr, i, array){
+					  		return { points: prev.points + curr.points };
+						});
+					}
+
+					return card.points + noble.points;
 		  	});
 
 		  	this.cardsOfColor = function(color){
-				var colorUpperCase = color.charAt(0).toUpperCase() + color.slice(1, color.length);
+					var colorUpperCase = color.charAt(0).toUpperCase() + color.slice(1, color.length);
 
-				return this['purchased' + colorUpperCase + 'Cards']();
-			}
-		  	
-		  	return this;	
+					return this['purchased' + colorUpperCase + 'Cards']() || [];
+				};
+
+		  	return this;
 		}
 
 		function chipSelectionValid(chip){
@@ -367,7 +435,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		function currentPlayerChipCount(){
 			var chips = self.currentPlayer().chips,
 				sum = 0;
-			
+
 			for(var prop in chips){
 				sum += chips[prop]();
 			}
@@ -378,13 +446,15 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		 function canAffordCard(card){
 			var currentPlayer = self.currentPlayer(),
 				yellowChips = currentPlayer.chips.yellow(),
-				yellowChipsNeeded = 0;
+				yellowChipsNeeded = 0,
+				chipsLacked = {};
 
 			var deficitArray = Object.keys(card.cost).filter(function(color){
-				var deficit = card.cost[color] - (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color));
+				var deficit = card.cost[color] - (currentPlayer.chips[color]() + currentPlayer.cardsOfColor(color).length);
 
 				if(deficit > 0){
 					yellowChipsNeeded = yellowChipsNeeded + deficit;
+					chipsLacked[color] = deficit;
 					return true;
 				}
 
@@ -393,13 +463,14 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			if(!deficitArray.length){
 				return true;
-			} 
-			else if(yellowChips > yellowChipsNeeded){
+			}
+			else if(yellowChips >= yellowChipsNeeded){
 				var confirmed = confirm('This transaction requires you to spend ' + yellowChipsNeeded + ' yellow chips. Are you sure?');
 				if(confirmed){
 					return {
-						yellowsChipsNeeded: yellowChipsNeeded
-					}
+						yellowsChipsNeeded: yellowChipsNeeded,
+						chipsLacked: chipsLacked
+					};
 				}
 			}
 
@@ -414,13 +485,23 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 					cost = nobles[i].cost;
 
 				for(var color in cost){
-					requirements.push((currentPlayer.cardsOfColor(color).length + 1) >= cost[color]);
+					requirements.push((currentPlayer.cardsOfColor(color).length) >= cost[color]);
 				}
 
 				if(requirements.indexOf(false) === -1){
-					currentPlayer.nobleCards.push(nobles[i]);
+					currentPlayer.nobleCards.push(nobles.splice(i, 1)[0]);
 					flipCard('nobles', i);
-				}	
+				}
+			}
+		}
+
+		function displayWinner(){
+			var winningPlayer = self.playerWon();
+
+			alert('Player ' + (winningPlayer.number + 1).toString() + ' won the game!');
+
+			if(confirm('Would you like to play again?')){
+				self.activate();
 			}
 		}
 
@@ -429,7 +510,7 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 
 			setTimeout(function(){
 				$('#notification-area').text(null);
-			}, 1000);
+			}, 2000);
 
 			return false;
 		}

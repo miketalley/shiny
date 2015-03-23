@@ -6,7 +6,6 @@
   font-weight: bolder;
   color: red;
   position: relative;
-  top: 7px;
   padding: 5px;
   white-space: nowrap;
 }
@@ -96,7 +95,7 @@
   top: 0px;
   left: 60px;
   font-weight: bolder;
-  padding: 4px 7px 4px 7px;
+  padding: 5px 10px 5px 10px;
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 20px;
   color: #d3d3d3;
@@ -104,7 +103,7 @@
 }
 
 .chip-selection-container {
-  margin-bottom: 10px;
+  margin: 10px 0px 10px 0px;
 }
 
 .chip .select {
@@ -169,12 +168,14 @@
   transition: top 1s ease;
 }
 
-.card-stack {
+.inventory .card-stack {
   height: 290px;
+  width: 88px;
   border: 1px solid #d3d3d3;
   background: #ffffff;
   border-style: double;
-  border-width: 2px;
+  border-width: 4px;
+  margin-left: 12px;
 }
 
 .card.selection:hover {
@@ -183,19 +184,27 @@
 }
 
 .chip-inventory-container {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .chip.inventory {
   height: 55px;
   width: 55px;
-  margin-right: 10px;
+  margin-right: 24px;
+  padding-top: 15px;
 }
 
 .count.inventory {
-  top: 0px;
-  left: 25px;
+  top: -13px;
+  left: 38px;
   font-size: 0.9em;
+  padding: 2px 5px 2px 5px;
+  width: 50%;
+  text-align: center;
+}
+
+.noble.inventory {
+  height: 80px;
 }
 
 .card .buy, .card .reserve, .chip .select {
