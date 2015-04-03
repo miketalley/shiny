@@ -7,7 +7,7 @@
     <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
 
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= requirejs_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
 
@@ -91,12 +91,6 @@
       </section>
       </nav>
 
-      <!-- <div id="login-modal" style="display:none;">
-      </div>
-
-      <div id="signUp-modal" style="display:none;">
-      </div> -->
-
 
    <!-- <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -110,32 +104,13 @@
      </div>
     </div>
    </div> -->
+
+
   </div>
 
   	<div id="applicationHost"></div>
-	<script src="lib/require/require.js" data-main="app/main"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="app/main"></script>
     <%= yield %>
     <%= javascript_include_tag "application" %>
   </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Shiny</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="../../../lib/foundation/css/foundation.min.css" />
-  <link rel="stylesheet" href="../../../lib/font-awesome/css/font-awesome.css" />
-  <link rel="stylesheet" href="../../../lib/durandal/css/durandal.css" />
-  <link rel="stylesheet" href="../../../lib/jquery-modal/jquery.modal.css" />
-  <link rel="stylesheet" href="../../../lib/qtip/jquery.qtip.min.css" />
-  <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css' />
-</head>
-<body>
-
-
-
-
-
-</body>
-</html> -->
