@@ -64,7 +64,7 @@
 			  		<li class='chip-selection-container'>
 						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.selectChip'>
 							<span class='count' data-bind="text: $data.count()"></span>
-							<div class='select button secondary'>Select</div>
+							<div data-bind='visible: $data.color !== "yellow"' class='select button secondary'>Select</div>
 						</div>
 			  		</li>
 			  		<!-- /ko -->

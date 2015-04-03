@@ -7,8 +7,8 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path = '../shiny';
-		// ../
+		self.path =  '../'; //'../shiny';
+		
 
 		self.chips = [
 			{
@@ -386,7 +386,10 @@ define(['knockout', 'jquery', 'nobles', 'level1', 'level2', 'level3', 'methods']
 		  		}).length,
 		  		hasTwoSameColorChips = selectedChips.length === 2 && (selectedChips[0].color === selectedChips[1].color);
 
-			if(playerChipCount === MAX_CHIPS){
+			if(chip.color === 'yellow'){
+				return false;
+			}
+			else if(playerChipCount === MAX_CHIPS){
 				notification('You have too many chips! You can only buy or reserve a card!');
 				return false;
 			}
