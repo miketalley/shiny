@@ -29,6 +29,8 @@ gem 'rails_12factor', group: :production
 gem 'foundation-rails'
 gem 'devise'
 gem 'knockoutjs-rails'
+gem 'paperclip'
+gem 'aws-sdk'
 
 # gem 'redis'
 # gem 'hiredis'
