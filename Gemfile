@@ -26,6 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 ########## MY GEMS ############
 gem 'rails_12factor', group: :production
+gem "font-awesome-rails"
 gem 'foundation-rails'
 gem 'devise'
 gem 'knockoutjs-rails'
