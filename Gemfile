@@ -25,8 +25,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 ########## MY GEMS ############
+gem 'rails_12factor', group: :production
 gem 'foundation-rails'
 gem 'devise'
+
+# gem 'redis'
+# gem 'hiredis'
+# gem 'websocket-rails'
 
 
 # Use ActiveModel has_secure_password
