@@ -12,48 +12,53 @@
   </head>
 
   <body>
-    <!-- NAVBAR -->
-    <div id="navbar">
-      <nav class="top-bar" data-topbar="">
-        <ul class="title-area">
-          <li class="name">
-            <h1><a href="#">Splendor</a></h1>
-          </li>
-          <li class="toggle-topbar menu-icon"><a href="#"></a></li>
-        </ul>
+    <div class='contain-to-grid'>
+      <!-- NAVBAR -->
+      <div id="navbar">
+        <nav class="top-bar" data-topbar="">
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="#">Splendor</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"></a></li>
+          </ul>
 
 
-        <section class="top-bar-section">
-            <ul class="right">
-              <!-- <li class="has-form">
-                <div class="row collapse">
-                  <div class="small-8 large-7 columns">
-                    <input type="text" placeholder="Search">
-                  </div>
-                  <div class="small-3 large-3 end columns">
-                    <a href="#" class="alert button expand">Go</a>
-                  </div>
-                </div>
-              </li> -->
-              <!-- USERS Dropdown -->
-              <li class="has-dropdown not-click">
-                <a href="#">Game</a>
-                <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-                  <li><a href="#">New</a></li>
-                  <li><a href="#">Search</a></li>
-                </ul>
-              </li>
-              <!-- INSTRUMENTS Dropdown -->
-              <li class="has-dropdown not-click">
-                <a href="#">User</a>
-                <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-                  <li><a href="#">New</a></li>
-                  <li><a href="#">Sign-In</a></li>
-                </ul>
-              </li>
+          <section class="top-bar-section">
+            <ul class="left">
+              <% flash.each do |name, msg| %>
+                <% if msg.is_a?(String) %>
+                  <%= content_tag :div, msg, :class => "flash_#{name}" %>
+                <% end %>
+              <% end %>
             </ul>
-          </section>
-        </nav>
+              <ul class="right">
+                <!-- USERS Dropdown -->
+                <li class="has-dropdown not-click">
+                  <a href="#">Game</a>
+                  <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                    <li><a href="#">New</a></li>
+                    <li><a href="#">Search</a></li>
+                  </ul>
+                </li>
+                <!-- INSTRUMENTS Dropdown -->
+                <li class="has-dropdown not-click">
+                  <a href="#"><% if user_signed_in? %><%= current_user.email %><% else %>User<% end %></a>
+                  <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
+                    <% if user_signed_in? %>
+                      <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+                      <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                    <% else %>
+                      <li><%= link_to "Sign up", new_user_registration_path %></li>
+                      <li><%= link_to "Login", new_user_session_path %></li>
+                    <% end %>
+
+                  </ul>
+                </li>
+              </ul>
+            </section>
+          </nav>
+      </div>
     </div>
 
     <%= yield %>
