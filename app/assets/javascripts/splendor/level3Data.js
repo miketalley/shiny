@@ -1,12 +1,4 @@
-(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define([], factory);
-    } else {
-        // Browser globals
-        root.level3 = factory();
-    }
-}(this, function () {
+(function () {
 		var level3 = {};
 
 		var path = '/images/level3/';
@@ -226,4 +218,4 @@
 
 		window.level3 = level3;
 
-}));
+})();
