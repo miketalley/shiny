@@ -62,6 +62,7 @@
 			</div>
 			<div class='row chips'>
 				<ul class='inline-list'>
+						<div data-bind='text: (function(){ debugger; })()'>
 			  		<!-- ko foreach: chips -->
 			  		<li class='chip-selection-container'>
 						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.selectChip'>
@@ -70,6 +71,7 @@
 						</div>
 			  		</li>
 			  		<!-- /ko -->
+						</div>
 			  	</ul>
 			</div>
 		</div>

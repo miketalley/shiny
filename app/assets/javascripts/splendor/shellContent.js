@@ -1,6 +1,20 @@
 $(".games.show").ready(function(){
 
-  function Home(){
+  (function(){
+    var numPlayers;
+
+    while(!numPlayers || numPlayers < 2 || numPlayers > 4){
+        numPlayers = prompt("Enter number of players: ", "2");
+    }
+
+    var model = Home(numPlayers);
+
+    ko.applyBindings(model, document.getElementById('home'));
+
+  })();
+
+
+  function Home(numPlayers){
 		var self = this,
 			MAX_CHIPS = 10,
 			MAX_SELECTION = 3,
@@ -96,23 +110,15 @@ $(".games.show").ready(function(){
 		  	}
 		});
 
-		self.activate = function(){
-			var numPlayers;
+    resetGameVariables();
 
-	  	resetGameVariables();
+    self.numPlayers(numPlayers);
+    self.currentPlayer({
+      number: -1
+    });
 
-			while(!numPlayers || numPlayers < 2 || numPlayers > 4){
-		  		numPlayers = prompt("Enter number of players: ", "2");
-			}
-
-	  	self.numPlayers(numPlayers);
-	  	self.currentPlayer({
-	  		number: -1
-	  	});
-
-	  	flipInitialCards();
-	  	nextPlayerTurn();
-		};
+    flipInitialCards();
+    nextPlayerTurn();
 
 		self.buyCard = function(card, event, reserved){
 			var purchaseDetails = canAffordCard(card);
@@ -518,8 +524,7 @@ $(".games.show").ready(function(){
 			return false;
 		}
 
+    return self;
+
 	}
-
-  ko.applyBindings(Home, document.getElementById('home'))
-
 });
