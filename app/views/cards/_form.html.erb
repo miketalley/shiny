@@ -1,0 +1,42 @@
+<%= form_for(@card) do |f| %>
+  <% if @card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@card.errors.count, "error") %> prohibited this card from being saved:</h2>
+
+      <ul>
+      <% @card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :type %>
+        <%= f.select :type, Card::TYPES %>
+      </div>
+    </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :color %>
+        <%= f.select :color, Card::COLORS %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :points %>
+        <%= f.select, Card::POINT_VALUES %>
+      </div>
+    </div>
+    <div class="row">
+        <%= f.submit class: 'radius button expand' %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
