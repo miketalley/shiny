@@ -11,19 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420173747) do
+ActiveRecord::Schema.define(version: 20150515181517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cards", force: true do |t|
-    t.text     "type"
     t.decimal  "level"
     t.text     "color"
     t.decimal  "points"
     t.text     "cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.decimal  "cost_white"
+    t.decimal  "cost_blue"
+    t.decimal  "cost_green"
+    t.decimal  "cost_red"
+    t.decimal  "cost_brown"
   end
 
   create_table "games", force: true do |t|

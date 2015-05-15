@@ -1,7 +1,7 @@
 (function () {
     var nobles = {};
 
-    var path = '/images/nobles/';
+    var path = 'images/nobles/';
 
     nobles.cards = [
       {

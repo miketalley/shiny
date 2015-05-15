@@ -14,8 +14,8 @@
   <div class="container">
     <div class="row collapse">
       <div class="large-12 columns">
-        <%= f.label :type %>
-        <%= f.select :type, Card::TYPES %>
+        <%= f.label :level %>
+        <%= f.select :level, Card::LEVELS %>
       </div>
     </div>
     </div>
@@ -28,7 +28,43 @@
     <div class="row collapse">
       <div class="large-12 columns">
         <%= f.label :points %>
-        <%= f.select, Card::POINT_VALUES %>
+        <%= f.select :points, Card::POINT_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :cost_white %>
+        <%= f.select :cost_white, Card::COST_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :cost_blue %>
+        <%= f.select :cost_blue, Card::COST_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :cost_green %>
+        <%= f.select :cost_green, Card::COST_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :cost_red %>
+        <%= f.select :cost_red, Card::COST_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :cost_brown %>
+        <%= f.select :cost_brown, Card::COST_VALUES %>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="large-12 columns">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
       </div>
     </div>
     <div class="row">

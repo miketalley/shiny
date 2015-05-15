@@ -30,7 +30,7 @@ gem "font-awesome-rails"
 gem 'foundation-rails'
 gem 'devise'
 gem 'knockoutjs-rails'
-gem 'paperclip'
+gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'
 
 # gem 'redis'

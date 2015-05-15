@@ -1,7 +1,7 @@
 (function () {
 		var level3 = {};
 
-		var path = '/images/level3/';
+		var path = 'images/level3/';
 
 		level3.cards = [
 			{

@@ -44,11 +44,11 @@ class CardsController < ApplicationController
     def card_params
       # params[:card]
       params.require(:card).permit(
-        :type,
         :level,
         :color,
         :points,
-        :cost
+        :cost,
+        :image
       )
     end
 end

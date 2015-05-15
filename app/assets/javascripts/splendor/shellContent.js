@@ -28,37 +28,37 @@ $(".games.show").ready(function(){
 			{
 				color: 'white',
 				count: ko.observable(7),
-				image: '/images/misc/chip_white.jpg',
+				image: 'images/misc/chip_white.jpg',
 				hex: '#ffffff'
 			},
 		  	{
 				color: 'blue',
 				count: ko.observable(7),
-				image: '/images/misc/chip_blue.jpg',
+				image: 'images/misc/chip_blue.jpg',
 				hex: '#0000e6'
 			},
 		  	{
 		  		color: 'green',
 				count: ko.observable(7),
-				image: '/images/misc/chip_green.jpg',
+				image: 'images/misc/chip_green.jpg',
 				hex: '#009d00'
 			},
 		  	{
 				color: 'red',
 				count: ko.observable(7),
-				image: '/images/misc/chip_red.jpg',
+				image: 'images/misc/chip_red.jpg',
 				hex: '#cc0000'
 			},
 		  	{
 		  		color: 'brown',
 				count: ko.observable(7),
-				image: '/images/misc/chip_brown.jpg',
+				image: 'images/misc/chip_brown.jpg',
 				hex: '#070503'
 			},
 		  	{
 				color: 'yellow',
 				count: ko.observable(5),
-				image: '/images/misc/chip_yellow.jpg',
+				image: 'images/misc/chip_yellow.jpg',
 				hex: '#ffc200'
 			}
 		];
@@ -74,16 +74,16 @@ $(".games.show").ready(function(){
 
 		self.cardPlaceholder = {
 				nobles: {
-					image: '/images/misc/noble_tile.jpg'
+					image: 'images/misc/noble_tile.jpg'
 				},
 				level3: {
-					image: '/images/misc/level3_card.jpg'
+					image: 'images/misc/level3_card.jpg'
 				},
 				level2: {
-					image: '/images/misc/level2_card.jpg'
+					image: 'images/misc/level2_card.jpg'
 				},
 				level1: {
-					image: '/images/misc/level1_card.jpg'
+					image: 'images/misc/level1_card.jpg'
 				}
 		};
 

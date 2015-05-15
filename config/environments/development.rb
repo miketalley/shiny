@@ -43,6 +43,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Paperclip schtuff
+  Paperclip.options[:command_path] = 'C:\Program Files (x86)\GnuWin32\bin'
+  
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -51,4 +53,5 @@ Rails.application.configure do
       :secret_access_key => ENV['i+JR765X6IR/Jf+5xLjKv/YJSxSMjstYXVTR4Sdl']
     }
   }
+
 end

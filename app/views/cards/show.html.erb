@@ -1,4 +1,26 @@
 <p id="notice"><%= notice %></p>
+	<div class="container">
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	<%= @card.type %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	<%= @card.color %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	<%= @card.points %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	<%= image_tag @card.image_url %>
+	      	</div>
+	    </div>
+	</div>
 
 <%= link_to 'Edit', edit_card_path(@card) %> |
 <%= link_to 'Back', cards_path %>

@@ -205,7 +205,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   knockoutjs-rails
-  paperclip
+  paperclip (~> 4.2)
   pg
   rails (= 4.2.0.rc1)
   rails_12factor
