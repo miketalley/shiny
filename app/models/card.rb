@@ -2,9 +2,9 @@ class Card < ActiveRecord::Base
 	serialize :cost
 
 	LEVELS = [
-		'level1',
-		'level2',
-		'level3',
+		'1',
+		'2',
+		'3',
 		'noble'
 	]
 
