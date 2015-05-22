@@ -7,3 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require File.expand_path('../seeds/level_1_cards', __FILE__)
+require File.expand_path('../seeds/level_2_cards', __FILE__)
+require File.expand_path('../seeds/level_3_cards', __FILE__)
+require File.expand_path('../seeds/nobles_cards', __FILE__)
