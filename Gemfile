@@ -39,6 +39,7 @@ gem 'rails_12factor', group: :production
 gem "font-awesome-rails"
 gem 'foundation-rails'
 gem 'knockoutjs-rails'
+# gem 'asset_sync'
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
 

@@ -2,22 +2,47 @@
 	<div class="container">
 	    <div class="row collapse">
 	      	<div class="large-12 columns">
-	        	<%= @card.level %>
+	        	Level: <%= @card.level %>
 	      	</div>
 	    </div>
 	    <div class="row collapse">
 	      	<div class="large-12 columns">
-	        	<%= @card.color %>
+	        	Color: <%= @card.color %>
 	      	</div>
 	    </div>
 	    <div class="row collapse">
 	      	<div class="large-12 columns">
-	        	<%= @card.points %>
+	        	Points: <%= @card.points %>
 	      	</div>
 	    </div>
 	    <div class="row collapse">
 	      	<div class="large-12 columns">
-	        	<%= image_tag @card.image_url %>
+	        	Cost White: <%= @card.cost_white %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	Cost Blue: <%= @card.cost_blue %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	Cost Green: <%= @card.cost_green %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	Cost Red: <%= @card.cost_red %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	Cost Brown: <%= @card.cost_brown %>
+	      	</div>
+	    </div>
+	    <div class="row collapse">
+	      	<div class="large-12 columns">
+	        	<%= image_tag @card.image %>
 	      	</div>
 	    </div>
 	</div>

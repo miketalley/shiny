@@ -22,7 +22,6 @@ class CardsController < ApplicationController
 
   def create
     @card = Card.new(card_params)
-    binding.pry
     @card.save
     respond_with(@card)
   end
