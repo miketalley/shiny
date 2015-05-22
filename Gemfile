@@ -24,14 +24,23 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+########## TESTING ############
+gem 'pry-rails', group: :development
+gem 'pry-nav', group: :development
+
+########## AUTH ###############
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+
 ########## MY GEMS ############
+gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rails_12factor', group: :production
 gem "font-awesome-rails"
 gem 'foundation-rails'
-gem 'devise'
 gem 'knockoutjs-rails'
 gem 'paperclip', '~> 4.2'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 # gem 'redis'
 # gem 'hiredis'

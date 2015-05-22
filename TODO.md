@@ -23,3 +23,9 @@
 * Install paperclip and upload images to S3
 DONE * Create admin role within devise to edit game settings via paperclip
   - https://github.com/plataformatec/devise/wiki/How-To:-Add-an-Admin-Role
+
+- Add hidden field to new game for current_user and field for # players
+- Allow players to check for open games
+  -- Auto connect or choose a game?
+- Once another player connects to the game, add them in as second player
+- Create list of MyGames and if it is my turn on each(indicator to know if I should play)

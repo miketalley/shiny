@@ -22,6 +22,7 @@ class CardsController < ApplicationController
 
   def create
     @card = Card.new(card_params)
+    binding.pry
     @card.save
     respond_with(@card)
   end
@@ -48,6 +49,11 @@ class CardsController < ApplicationController
         :color,
         :points,
         :cost,
+        :cost_white,
+        :cost_blue,
+        :cost_green,
+        :cost_red,
+        :cost_brown,
         :image
       )
     end
