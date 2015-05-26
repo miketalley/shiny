@@ -1,7 +1,7 @@
 class CardsController < ApplicationController
   before_action :set_card, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @cards = Card.all
@@ -21,6 +21,7 @@ class CardsController < ApplicationController
   end
 
   def create
+    # card_params.delete_if {|key, value| (key.include? "cost") && (value.nil? || value.to_i == 0)}
     @card = Card.new(card_params)
     @card.save
     respond_with(@card)
@@ -35,7 +36,7 @@ class CardsController < ApplicationController
     @card.destroy
     respond_with(@card)
   end
-
+  
   private
     def set_card
       @card = Card.find(params[:id])
