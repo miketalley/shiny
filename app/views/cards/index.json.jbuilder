@@ -1,6 +1,5 @@
 json.array!(@cards) do |card|
   json.extract! card, :id, :level, :color, :points, :image
-  #json.cost get_cost(card)
   json.cost do
 	unless card.cost_white.nil? 
 		json.white card.cost_white
