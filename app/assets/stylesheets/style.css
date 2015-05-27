@@ -63,6 +63,7 @@
 .card.selection {
   border-radius: 10px;
   border: 2px solid #262626;
+  background-size: cover;
 }
 
 .card:hover .buy, .card:hover .reserve, .chip:hover .select, .chip:hover .remove {

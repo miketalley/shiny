@@ -42,7 +42,7 @@ $(".games.show").ready(function(){
 			MAX_RESERVE = 3,
 			decks, nobleCards, level1Cards, level2Cards, level3Cards;
 
-		self.path =  '..'; //'../shiny';
+		self.path =  '/'; //'../shiny';
 
 		self.loaded = ko.observable(false);
 
@@ -132,8 +132,8 @@ $(".games.show").ready(function(){
 		  	}
 		});
 
-		self.beginNewGame = function(numPlayers, level1Cards, level2Cards, level3Cards, nobleCards){
-		    resetGameVariables(level1Cards, level2Cards, level3Cards, nobleCards);
+		self.beginNewGame = function(numPlayers, decksOfCards){
+		    resetGameVariables(decksOfCards[0], decksOfCards[1], decksOfCards[2], decksOfCards[3]);
 		    self.numPlayers(numPlayers);
 		    flipInitialCards();
 		    nextPlayerTurn();		   
