@@ -9,8 +9,6 @@ $(".games.show").ready(function(){
 
     var model = Home(numPlayers);
 
-    ko.applyBindings(model, document.getElementById('home'));
-
   })();
 
 
@@ -19,46 +17,46 @@ $(".games.show").ready(function(){
 			MAX_CHIPS = 10,
 			MAX_SELECTION = 3,
 			MAX_RESERVE = 3,
-			decks;
+			decks, nobleCards, level1Cards, level2Cards, level3Cards;
 
-		self.path =  '/'; //'../shiny';
+		self.path =  '..'; //'../shiny';
 
 
 		self.chips = [
 			{
 				color: 'white',
 				count: ko.observable(7),
-				image: 'images/misc/chip_white.jpg',
+				image: self.path + 'images/misc/chip_white.jpg',
 				hex: '#ffffff'
 			},
 		  	{
 				color: 'blue',
 				count: ko.observable(7),
-				image: 'images/misc/chip_blue.jpg',
+				image: self.path + 'images/misc/chip_blue.jpg',
 				hex: '#0000e6'
 			},
 		  	{
 		  		color: 'green',
 				count: ko.observable(7),
-				image: 'images/misc/chip_green.jpg',
+				image: self.path + 'images/misc/chip_green.jpg',
 				hex: '#009d00'
 			},
 		  	{
 				color: 'red',
 				count: ko.observable(7),
-				image: 'images/misc/chip_red.jpg',
+				image: self.path + 'images/misc/chip_red.jpg',
 				hex: '#cc0000'
 			},
 		  	{
 		  		color: 'brown',
 				count: ko.observable(7),
-				image: 'images/misc/chip_brown.jpg',
+				image: self.path + 'images/misc/chip_brown.jpg',
 				hex: '#070503'
 			},
 		  	{
 				color: 'yellow',
 				count: ko.observable(5),
-				image: 'images/misc/chip_yellow.jpg',
+				image: self.path + 'images/misc/chip_yellow.jpg',
 				hex: '#ffc200'
 			}
 		];
@@ -74,16 +72,16 @@ $(".games.show").ready(function(){
 
 		self.cardPlaceholder = {
 				nobles: {
-					image: 'images/misc/noble_tile.jpg'
+					image: self.path + 'images/misc/noble_tile.jpg'
 				},
 				level3: {
-					image: 'images/misc/level3_card.jpg'
+					image: self.path + 'images/misc/level3_card.jpg'
 				},
 				level2: {
-					image: 'images/misc/level2_card.jpg'
+					image: self.path + 'images/misc/level2_card.jpg'
 				},
 				level1: {
-					image: 'images/misc/level1_card.jpg'
+					image: self.path + 'images/misc/level1_card.jpg'
 				}
 		};
 
@@ -113,7 +111,6 @@ $(".games.show").ready(function(){
 		// Begin Game
 		getCards()
 		.then(function(resp){
-			debugger;
 		    resetGameVariables();
 
 		    self.numPlayers(numPlayers);
@@ -123,6 +120,8 @@ $(".games.show").ready(function(){
 
 		    flipInitialCards();
 		    nextPlayerTurn();
+
+		    ko.applyBindings(self, document.getElementById('home'));
 		});
 
 
@@ -245,9 +244,20 @@ $(".games.show").ready(function(){
 		};
 
 		function getCards(){
-			return $.get('/cards.json', function(resp){
-				debugger;
+			var level1 = $.get('/cards/level/1.json', function(resp){
+				level1Cards = resp;
 			});
+			var level2 = $.get('/cards/level/2.json', function(resp){
+				level2Cards = resp;
+			});
+			var level3 = $.get('/cards/level/3.json', function(resp){
+				level3Cards = resp;
+			});
+			var nobles = $.get('/cards/level/4.json', function(resp){
+				nobleCards = resp;
+			});
+
+			return Promise.all([level1, level2, level3, nobles]);
 		}
 
 		function nextPlayerTurn(){

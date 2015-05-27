@@ -6,11 +6,11 @@
 			<div class='row nobles-container'>
 				<ul class='inline-list'>
 					<li class='noble'>
-						<img class='tile back' data-bind="attr: { src: path + '/images/misc/noble_tile.jpg' }">
+						<img class='tile back' data-bind="attr: { src: '/images/misc/noble_tile.jpg' }">
 					</li>
 				  	<!-- ko foreach: displayedCards.nobles -->
 				  	<li class='noble'>
-				  		<img class='tile' data-bind='attr: { src: $root.path + $data.image }' />
+				  		<img class='tile' data-bind='attr: { src: $data.image }' />
 				  	</li>
 				  	<!-- /ko -->
 				</ul>
@@ -18,11 +18,11 @@
 			<div class='row level3'>
 				<ul class='inline-list'>
 			  		<li class='card-container'>
-				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level3_card.jpg' }">
+				 		<img class='card back' data-bind="attr: { src: '/images/misc/level3_card.jpg' }">
 					</li>
 					<!-- ko foreach: displayedCards.level3 -->
 				 		<li class='card-container'>
-							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+							<div class='card selection' data-bind='style: { background: "url(" + $data.image + ")", background-size: "cover" }'>
 								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
 									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
@@ -33,11 +33,11 @@
 			<div class='row level2'>
 				<ul class='inline-list'>
 			  		<li class='card-container'>
-				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level2_card.jpg' }">
+				 		<img class='card back' data-bind="attr: { src: '/images/misc/level2_card.jpg' }">
 					</li>
 					<!-- ko foreach: displayedCards.level2 -->
 				 		<li class='card-container'>
-							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+							<div class='card selection' data-bind='style: { background: "url(" + $data.image + ")", background-size: "cover" }'>
 								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
 									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
@@ -48,11 +48,11 @@
 			<div class='row level1'>
 			  	<ul class='inline-list'>
 			  		<li class='card-container'>
-				 		<img class='card back' data-bind="attr: { src: path + '/images/misc/level1_card.jpg' }">
+				 		<img class='card back' data-bind="attr: { src: '/images/misc/level1_card.jpg' }">
 					</li>
 					<!-- ko foreach: displayedCards.level1 -->
 				 		<li class='card-container'>
-							<div class='card selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }'>
+							<div class='card selection' data-bind='style: { background: "url(" + $data.image + ")", background-size: "cover" }'>
 								<div class='buy button success' data-bind="click: $parent.buyCard, visible: $data.cost">Buy</div>
 									<div class='reserve button' data-bind="click: $parent.reserveCard, visible: $data.cost">Reserve</div>
 							</div>
@@ -62,7 +62,6 @@
 			</div>
 			<div class='row chips'>
 				<ul class='inline-list'>
-						<div data-bind='text: (function(){ debugger; })()'>
 			  		<!-- ko foreach: chips -->
 			  		<li class='chip-selection-container'>
 						<div class='chip selection' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $parent.selectChip'>
@@ -114,7 +113,7 @@
 					<div class='player-info tabs-content panel'>
 						<div class='row chip-inventory-container'>
 							<ul class='inline-list'>
-              <!-- ko foreach: chips -->
+              				<!-- ko foreach: chips -->
 							<li class='chip inventory' data-bind='style: { background: "url(" + $parent.path + $data.image + ")", background-size: "cover" }, click: $root.selectChip'>
 								<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color]()"></span>
 							</li>

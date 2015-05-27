@@ -3,6 +3,7 @@ module NoblesCards
 
 	cards = [
       {
+        level: 4,
         image: path + 'IMG_0001.jpg',
         points: 3,
         cost: {
@@ -11,6 +12,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0002.jpg',
         points: 3,
         cost: {
@@ -20,6 +22,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0003.jpg',
         points: 3,
         cost: {
@@ -29,6 +32,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0004.jpg',
         points: 3,
         cost: {
@@ -37,6 +41,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0005.jpg',
         points: 3,
         cost: {
@@ -46,6 +51,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0006.jpg',
         points: 3,
         cost: {
@@ -54,6 +60,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0007.jpg',
         points: 3,
         cost: {
@@ -63,6 +70,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0008.jpg',
         points: 3,
         cost: {
@@ -71,6 +79,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0009.jpg',
         points: 3,
         cost: {
@@ -79,6 +88,7 @@ module NoblesCards
         }
       },
       {
+        level: 4,
         image: path + 'IMG_0010.jpg',
         points: 3,
         cost: {
