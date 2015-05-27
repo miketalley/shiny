@@ -36,6 +36,12 @@ class CardsController < ApplicationController
     @card.destroy
     respond_with(@card)
   end
+
+  def level
+    binding.pry
+    @cards = Card.all.select{ |card| card.level == params[:level] }
+    respond_with(@cards)
+  end
   
   private
     def set_card

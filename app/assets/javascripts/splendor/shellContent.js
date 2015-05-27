@@ -21,7 +21,7 @@ $(".games.show").ready(function(){
 			MAX_RESERVE = 3,
 			decks;
 
-		self.path =  '../'; //'../shiny';
+		self.path =  '/'; //'../shiny';
 
 
 		self.chips = [
@@ -110,15 +110,21 @@ $(".games.show").ready(function(){
 		  	}
 		});
 
-    resetGameVariables();
+		// Begin Game
+		getCards()
+		.then(function(resp){
+			debugger;
+		    resetGameVariables();
 
-    self.numPlayers(numPlayers);
-    self.currentPlayer({
-      number: -1
-    });
+		    self.numPlayers(numPlayers);
+		    self.currentPlayer({
+		      number: -1
+		    });
 
-    flipInitialCards();
-    nextPlayerTurn();
+		    flipInitialCards();
+		    nextPlayerTurn();
+		});
+
 
 		self.buyCard = function(card, event, reserved){
 			var purchaseDetails = canAffordCard(card);
@@ -238,6 +244,12 @@ $(".games.show").ready(function(){
 			return self.viewedPlayer().chips[color]();
 		};
 
+		function getCards(){
+			return $.get('/cards.json', function(resp){
+				debugger;
+			});
+		}
+
 		function nextPlayerTurn(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
@@ -264,10 +276,10 @@ $(".games.show").ready(function(){
 		}
 
 		function resetGameVariables(){
-				decks.nobles = methods.shuffle(nobles.cards);
-		  	decks.level3 = methods.shuffle(level3.cards);
-		  	decks.level2 = methods.shuffle(level2.cards);
-		  	decks.level1 = methods.shuffle(level1.cards);
+			decks.nobles = methods.shuffle(nobleCards);
+		  	decks.level3 = methods.shuffle(level3Cards);
+		  	decks.level2 = methods.shuffle(level2Cards);
+		  	decks.level1 = methods.shuffle(level1Cards);
 
 		  	self.selectedChips([]);
 

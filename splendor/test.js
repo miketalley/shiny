@@ -1,3 +1,0 @@
-// $(".game.index").ready(function(){
-//
-// });
