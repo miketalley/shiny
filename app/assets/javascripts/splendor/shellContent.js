@@ -7,12 +7,35 @@ $(".games.show").ready(function(){
         numPlayers = prompt("Enter number of players: ", "2");
     }
 
-    Home(numPlayers);
+    var model = Home();
+
+    ko.applyBindings(self, document.getElementById('home'));
+
+    (function getCards(){
+		var level1 = $.get('/cards/level/1.json', function(resp){
+			level1Cards = resp;
+		});
+		var level2 = $.get('/cards/level/2.json', function(resp){
+			level2Cards = resp;
+		});
+		var level3 = $.get('/cards/level/3.json', function(resp){
+			level3Cards = resp;
+		});
+		var nobles = $.get('/cards/level/4.json', function(resp){
+			nobleCards = resp;
+		});
+
+		return Promise.all([level1, level2, level3, nobles]);
+	})()
+	.then(function(resp){
+		model.beginNewGame(numPlayers, resp);
+		model.loaded(true);
+	});
 
   })();
 
 
-  function Home(numPlayers){
+  function Home(){
 		var self = this,
 			MAX_CHIPS = 10,
 			MAX_SELECTION = 3,
@@ -21,6 +44,7 @@ $(".games.show").ready(function(){
 
 		self.path =  '..'; //'../shiny';
 
+		self.loaded = ko.observable(false);
 
 		self.chips = [
 			{
@@ -87,7 +111,7 @@ $(".games.show").ready(function(){
 
 		self.numPlayers = ko.observable();
 		self.players = ko.observableArray();
-		self.currentPlayer = ko.observable();
+		self.currentPlayer = ko.observable({ number: -1 });
 		self.viewedPlayer = ko.observable();
 		self.selectedChips = ko.observableArray();
 		self.selectedCardToReserve = ko.observable();
@@ -108,22 +132,12 @@ $(".games.show").ready(function(){
 		  	}
 		});
 
-		// Begin Game
-		getCards()
-		.then(function(resp){
-		    resetGameVariables();
-
+		self.beginNewGame = function(numPlayers, level1Cards, level2Cards, level3Cards, nobleCards){
+		    resetGameVariables(level1Cards, level2Cards, level3Cards, nobleCards);
 		    self.numPlayers(numPlayers);
-		    self.currentPlayer({
-		      number: -1
-		    });
-
 		    flipInitialCards();
-		    nextPlayerTurn();
-
-		    ko.applyBindings(self, document.getElementById('home'));
-		});
-
+		    nextPlayerTurn();		   
+		};
 
 		self.buyCard = function(card, event, reserved){
 			var purchaseDetails = canAffordCard(card);
@@ -243,23 +257,6 @@ $(".games.show").ready(function(){
 			return self.viewedPlayer().chips[color]();
 		};
 
-		function getCards(){
-			var level1 = $.get('/cards/level/1.json', function(resp){
-				level1Cards = resp;
-			});
-			var level2 = $.get('/cards/level/2.json', function(resp){
-				level2Cards = resp;
-			});
-			var level3 = $.get('/cards/level/3.json', function(resp){
-				level3Cards = resp;
-			});
-			var nobles = $.get('/cards/level/4.json', function(resp){
-				nobleCards = resp;
-			});
-
-			return Promise.all([level1, level2, level3, nobles]);
-		}
-
 		function nextPlayerTurn(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
@@ -285,7 +282,7 @@ $(".games.show").ready(function(){
 		  	self.viewedPlayer(self.currentPlayer());
 		}
 
-		function resetGameVariables(){
+		function resetGameVariables(level1Cards, level2Cards, level3Cards, nobleCards){
 			decks.nobles = methods.shuffle(nobleCards);
 		  	decks.level3 = methods.shuffle(level3Cards);
 		  	decks.level2 = methods.shuffle(level2Cards);
