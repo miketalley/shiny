@@ -7,7 +7,7 @@ $(".games.show").ready(function(){
         numPlayers = prompt("Enter number of players: ", "2");
     }
 
-    var model = Home(numPlayers);
+    Home(numPlayers);
 
   })();
 
@@ -71,18 +71,18 @@ $(".games.show").ready(function(){
 		};
 
 		self.cardPlaceholder = {
-				nobles: {
-					image: self.path + 'images/misc/noble_tile.jpg'
-				},
-				level3: {
-					image: self.path + 'images/misc/level3_card.jpg'
-				},
-				level2: {
-					image: self.path + 'images/misc/level2_card.jpg'
-				},
-				level1: {
-					image: self.path + 'images/misc/level1_card.jpg'
-				}
+			nobles: {
+				image: 'images/misc/noble_tile.jpg'
+			},
+			level3: {
+				image: 'images/misc/level3_card.jpg'
+			},
+			level2: {
+				image: 'images/misc/level2_card.jpg'
+			},
+			level1: {
+				image: 'images/misc/level1_card.jpg'
+			}
 		};
 
 		self.numPlayers = ko.observable();
