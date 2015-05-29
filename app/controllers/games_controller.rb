@@ -27,6 +27,7 @@ class GamesController < ApplicationController
   end
 
   def update
+    binding.pry
     @game.update(game_params)
     respond_with(@game)
   end

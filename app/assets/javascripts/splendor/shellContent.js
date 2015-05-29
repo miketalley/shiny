@@ -282,27 +282,31 @@ $(".games.show").ready(function(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
 
+			var savePromise = saveGame();
+			
+			savePromise.then(function(){
 				self.selectedChips([]);
 
-		  	// If the final player in each round just went
-		  	if(currentPlayerNum === (self.numPlayers() - 1)){
-					// Check if somebody won and display winner if so
-					if(self.playerWon()){
-				  		displayWinner();
-					}
-					// If not switch back to player 1
-					else{
-				  		self.currentPlayer(players[0]);
-					}
-		  	}
-		  	// Switch to the next player
-		  	else{
-				self.currentPlayer(players[currentPlayerNum + 1]);
-		  	}
+			  	// If the final player in each round just went
+			  	if(currentPlayerNum === (self.numPlayers() - 1)){
+						// Check if somebody won and display winner if so
+						if(self.playerWon()){
+					  		displayWinner();
+						}
+						// If not switch back to player 1
+						else{
+					  		self.currentPlayer(players[0]);
+						}
+			  	}
+			  	// Switch to the next player
+			  	else{
+					self.currentPlayer(players[currentPlayerNum + 1]);
+			  	}
 
-		  	// Switch the view to the current player at the
-		  	// beginning of each turn
-		  	self.viewedPlayer(self.currentPlayer());
+			  	// Switch the view to the current player at the
+			  	// beginning of each turn
+			  	self.viewedPlayer(self.currentPlayer());
+			});
 		}
 
 		function resetGameVariables(level1Cards, level2Cards, level3Cards, nobleCards){
@@ -564,6 +568,19 @@ $(".games.show").ready(function(){
 			}, 2000);
 
 			return false;
+		}
+
+		function saveGame(){
+			var gameData = ko.toJS(self.gameData);
+
+			gameData.game_state = JSON.stringify({
+				displayedCards: ko.toJS(self.displayedCards),
+				decks: decks,
+				players: ko.toJS(self.players),
+				currentPlayer: self.currentPlayer()
+			});
+
+			return $.post('/games/update', gameData);
 		}
 
     return self;

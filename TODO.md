@@ -1,7 +1,4 @@
-* Add form to new game
-  - Choose num players
-  - Public/Private Slots
-* Pickup num players from params in JS
+* Add reference to user in player1,2,3,4
 * Search for a game to join
 * Once another player connects to the game, add them in as second player
 * Get web sockets running
@@ -20,6 +17,10 @@
 * Make game images smaller resolution and file size
 
 
+DONE * Pickup num players from params in JS
+DONE * Add form to new game
+  - Choose num players
+  - Public/Private Slots
 DONE * Think about what the model should look like
   - Have separate models for noble/cards? different levels?
   Item:
