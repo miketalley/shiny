@@ -17,5 +17,3 @@
 //= require knockout
 //= require jquery-readyselector
 //= require_tree .
-
-$(function(){ $(document).foundation(); });
