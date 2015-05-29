@@ -32,6 +32,7 @@ $(".games.show").ready(function(){
 
 		self.loaded = ko.observable(false);
 		self.gameData = ko.observable();
+		self.playerMadeMove = false;
 
 		self.chips = [
 			{
@@ -282,9 +283,19 @@ $(".games.show").ready(function(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
 
-			var savePromise = saveGame();
+			if(self.playerMadeMove){
+				var savePromise = saveGame();
+				
+				savePromise.then(function(response){
+					nextTurn();
+				});
+			}
+			else{
+				self.playerMadeMove = true;
+				nextTurn();
+			}
 			
-			savePromise.then(function(){
+			function nextTurn(){
 				self.selectedChips([]);
 
 			  	// If the final player in each round just went
@@ -306,7 +317,7 @@ $(".games.show").ready(function(){
 			  	// Switch the view to the current player at the
 			  	// beginning of each turn
 			  	self.viewedPlayer(self.currentPlayer());
-			});
+			}
 		}
 
 		function resetGameVariables(level1Cards, level2Cards, level3Cards, nobleCards){
@@ -580,7 +591,7 @@ $(".games.show").ready(function(){
 				currentPlayer: self.currentPlayer()
 			});
 
-			return $.post('/games/update', gameData);
+			return $.post('/games/' + self.gameData(), gameData);
 		}
 
     return self;
