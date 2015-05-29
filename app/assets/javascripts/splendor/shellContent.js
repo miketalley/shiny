@@ -1,35 +1,21 @@
 $(".games.show").ready(function(){
 
   (function(){
-    var numPlayers;
+    // var numPlayers;
 
-    while(!numPlayers || numPlayers < 2 || numPlayers > 4){
-        numPlayers = prompt("Enter number of players: ", "2");
-    }
+    // while(!numPlayers || numPlayers < 2 || numPlayers > 4){
+    //     numPlayers = prompt("Enter number of players: ", "2");
+    // }
 
     var model = Home();
 
     ko.applyBindings(self, document.getElementById('home'));
 
-    (function getCards(){
-		var level1 = $.get('/cards/level/1.json', function(resp){
-			level1Cards = resp;
-		});
-		var level2 = $.get('/cards/level/2.json', function(resp){
-			level2Cards = resp;
-		});
-		var level3 = $.get('/cards/level/3.json', function(resp){
-			level3Cards = resp;
-		});
-		var nobles = $.get('/cards/level/4.json', function(resp){
-			nobleCards = resp;
-		});
-
-		return Promise.all([level1, level2, level3, nobles]);
-	})()
+    (function(){
+    	return $.get(document.location.href + ".json");
+    })()
 	.then(function(resp){
-		model.beginNewGame(numPlayers, resp);
-		model.loaded(true);
+		model.beginNewGame(resp);
 	});
 
   })();
@@ -45,6 +31,7 @@ $(".games.show").ready(function(){
 		self.path =  '/'; //'../shiny';
 
 		self.loaded = ko.observable(false);
+		self.gameData = ko.observable();
 
 		self.chips = [
 			{
@@ -124,7 +111,7 @@ $(".games.show").ready(function(){
 		});
 
 		self.numPlayers.subscribe(function(newVal){
-				self.players([]);
+			self.players([]);
 		  	for(var i = 0; i < newVal; i++){
 				var player = new Player();
 				player.number = i;
@@ -132,11 +119,28 @@ $(".games.show").ready(function(){
 		  	}
 		});
 
-		self.beginNewGame = function(numPlayers, decksOfCards){
-		    resetGameVariables(decksOfCards[0], decksOfCards[1], decksOfCards[2], decksOfCards[3]);
-		    self.numPlayers(numPlayers);
-		    flipInitialCards();
-		    nextPlayerTurn();		   
+		self.beginNewGame = function(gameData){
+			self.gameData(gameData);
+			self.numPlayers(gameData.num_players);
+
+			if(gameData.game_state){
+				// Oh boy what goes here?
+				// TODO -- get saved game state
+				// 
+			    flipInitialCards();
+			    nextPlayerTurn();
+			    self.loaded(true);
+			}
+			else{
+				var cardsPromise = getCards();
+
+				cardsPromise.then(function(decksOfCards){
+		    		resetGameVariables(decksOfCards[0], decksOfCards[1], decksOfCards[2], decksOfCards[3]);
+				    flipInitialCards();
+				    nextPlayerTurn();		   
+					self.loaded(true);
+				});
+			}
 		};
 
 		self.buyCard = function(card, event, reserved){
@@ -149,7 +153,7 @@ $(".games.show").ready(function(){
 			  		var currentPlayer = self.currentPlayer(),
 			  			deckType = 'level' + card.level,
 			  			index = self.displayedCards[deckType].indexOf(card),
-              purchasedCard;
+              			purchasedCard;
 
             // If yellow chips are needed, substitute them for chips
             // that are lacking
@@ -257,6 +261,23 @@ $(".games.show").ready(function(){
 			return self.viewedPlayer().chips[color]();
 		};
 
+		function getCards(){
+			var level1 = $.get('/cards/level/1.json', function(resp){
+				level1Cards = resp;
+			});
+			var level2 = $.get('/cards/level/2.json', function(resp){
+				level2Cards = resp;
+			});
+			var level3 = $.get('/cards/level/3.json', function(resp){
+				level3Cards = resp;
+			});
+			var nobles = $.get('/cards/level/4.json', function(resp){
+				nobleCards = resp;
+			});
+
+			return Promise.all([level1, level2, level3, nobles]);
+		}
+
 		function nextPlayerTurn(){
 		  	var currentPlayerNum = self.currentPlayer().number,
 				players = self.players();
@@ -279,6 +300,8 @@ $(".games.show").ready(function(){
 				self.currentPlayer(players[currentPlayerNum + 1]);
 		  	}
 
+		  	// Switch the view to the current player at the
+		  	// beginning of each turn
 		  	self.viewedPlayer(self.currentPlayer());
 		}
 
@@ -318,15 +341,15 @@ $(".games.show").ready(function(){
 		}
 
 		function flipCard(type, position){
-				var newCardFromDeck = decks[type].shift();
+			var newCardFromDeck = decks[type].shift();
 
-				if(newCardFromDeck){
-		  		self.displayedCards[type].splice(position, 0, newCardFromDeck);
-				}
-				else{
-					var placeholder = self.cardPlaceholder[type];
-					self.displayedCards[type].splice(position, 0, placeholder);
-				}
+			if(newCardFromDeck){
+	  		self.displayedCards[type].splice(position, 0, newCardFromDeck);
+			}
+			else{
+				var placeholder = self.cardPlaceholder[type];
+				self.displayedCards[type].splice(position, 0, placeholder);
+			}
 		}
 
 		function Player(){
@@ -363,7 +386,7 @@ $(".games.show").ready(function(){
 		  	this.nobleCards = ko.observableArray();
 
 		  	this.chips = {
-					white: ko.observable(0),
+				white: ko.observable(0),
 			  	blue: ko.observable(0),
 			  	green: ko.observable(0),
 			  	red: ko.observable(0),

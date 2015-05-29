@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     @games = Game.all
@@ -42,6 +42,17 @@ class GamesController < ApplicationController
     end
 
     def game_params
-      params[:game]
+      params.require(:game).permit(
+        :name,
+        :privacy,
+        :num_players,
+        :player1,
+        :player2,
+        :player3,
+        :player4,
+        :status,
+        :whose_turn,
+        :game_state
+      )
     end
 end

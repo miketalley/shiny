@@ -115,7 +115,7 @@
 							<ul class='inline-list'>
               				<!-- ko foreach: chips -->
 							<li class='chip inventory' data-bind='style: { background: "url(" + $data.image + ") 0% 0%/cover" }, click: $root.selectChip'>
-								<span class='count inventory' data-bind="text: $parent.viewedPlayer().chips[$data.color]()"></span>
+								<span class='count inventory' data-bind="text: viewedPlayer().chips[$data.color]()"></span>
 							</li>
 							<!-- /ko -->
               				</ul>
