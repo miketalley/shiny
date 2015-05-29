@@ -33,18 +33,17 @@
               <% end %>
             </ul>
               <ul class="right">
-                <!-- USERS Dropdown -->
+                <!-- Games Dropdown -->
                 <li class="has-dropdown not-click">
-                  <a href="#">Game</a>
+                  <a>Game</a>
                   <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
-                    <li><%= link_to 'GO TO GAME', 'games' %></li>
-                    <li><a href="#">New</a></li>
-                    <li><a href="#">Search</a></li>
+                    <li><%= link_to 'New', new_game_path %></li>
+                    <li><%= link_to 'Search', games_path %></li>
                   </ul>
                 </li>
-                <!-- INSTRUMENTS Dropdown -->
+                <!-- User/Login Dropdown -->
                 <li class="has-dropdown not-click">
-                  <a href="#"><% if user_signed_in? %><%= current_user.email %><% else %>User<% end %></a>
+                  <a><% if user_signed_in? %><%= current_user.email %><% else %>User<% end %></a>
                   <ul class="dropdown"><li class="title back js-generated"><h5><a href="javascript:void(0)">Back</a></h5></li>
                     <% if user_signed_in? %>
                       <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
