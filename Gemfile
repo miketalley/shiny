@@ -36,6 +36,7 @@ gem 'omniauth-google-oauth2'
 ########## MY GEMS ############
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'rails_12factor', group: :production
+gem 'modernizr-rails'
 gem "font-awesome-rails"
 gem 'foundation-rails'
 gem 'knockoutjs-rails'
