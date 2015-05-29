@@ -537,7 +537,7 @@ $(".games.show").ready(function(){
 			$('#notification-area').text(message);
 
 			setTimeout(function(){
-				$('#notification-area').text(null);
+				$('#notification-area').text('');
 			}, 2000);
 
 			return false;
